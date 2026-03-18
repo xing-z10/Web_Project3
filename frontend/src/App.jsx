@@ -13,6 +13,7 @@ export default function App() {
         <Route path="/" element={<DiscoverPage />} />
         <Route path="/add" element={<AddEventPage />} />
         <Route path="/preferences" element={<PreferencesPage />} />
+        <Route path="/discover-tonight" element={<DiscoverTonightPage />} />
       </Routes>
     </BrowserRouter>
   );
