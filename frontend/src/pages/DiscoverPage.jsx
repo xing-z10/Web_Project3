@@ -34,7 +34,11 @@ export default function DiscoverPage() {
               Discover your <em className="discover-hero__accent">city's pulse.</em>
             </h1>
             <Link to="/discover-tonight" className="discover-tonight-btn">
-              <i className="fa-solid fa-moon"></i> Discover Tonight
+              <i class="fa-solid fa-dice"></i>
+              <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.5 }}>
+                <p>Discover</p>
+                <p>Tonight</p>
+              </span>
             </Link>
           </div>
           <p className="discover-hero__sub">

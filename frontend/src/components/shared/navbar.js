@@ -12,6 +12,9 @@ export default function Navbar() {
         <NavLink to="/add" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
           Add Event
         </NavLink>
+        <NavLink to="/discover-tonight" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
+          Tonight
+        </NavLink>
         <NavLink to="/preferences" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
           Preferences
         </NavLink>
