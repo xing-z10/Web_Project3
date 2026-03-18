@@ -18,44 +18,43 @@ function normalizeEvent(event) {
   };
 }
 
+function getTodayRange() {
+  const now = new Date();
+  const start = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  const end = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+  return { dateFrom: start.toISOString(), dateTo: end.toISOString() };
+}
+
 export default function DiscoverTonightPage({ email }) {
   const [preference, setPreference] = useState(null);
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    async function loadPref() {
+    async function init() {
+      let pref = null;
       try {
         const data = await getPreference(email);
-        if (data) setPreference(data);
+        if (data) { setPreference(data); pref = data; }
       } catch (err) {
         console.error('Failed to load preference:', err.message);
       }
+      await fetchEvents(pref);
     }
-    if (email) loadPref();
+    if (email) init();
   }, [email]);
 
-  async function handleDiscover() {
+  async function fetchEvents(pref) {
     setLoading(true);
     setError(null);
-    setSearched(true);
     try {
-      const params = {};
-      if (preference?.last_city) params.city = preference.last_city;
-      if (preference?.preferred_cate) params.category = preference.preferred_cate;
-
-      // Get today's date range in UTC
-      const now = new Date();
-      const start = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-      const end = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate() + 1));
-      params.dateFrom = start.toISOString();
-      params.dateTo = end.toISOString();
+      const params = { ...getTodayRange() };
+      if (pref?.last_city) params.city = pref.last_city;
+      if (pref?.preferred_cate) params.category = pref.preferred_cate;
 
       const results = await getTodayEvents(params);
-
-      if (results.length === 0) {
+      if (!results || results.length === 0) {
         setError('No events found for today.');
       } else {
         setEvents(results.map(normalizeEvent));
@@ -67,6 +66,10 @@ export default function DiscoverTonightPage({ email }) {
     }
   }
 
+  async function handleTryAnother() {
+    await fetchEvents(preference);
+  }
+
   return (
     <div className="discover-tonight-page">
       <section className="discover-hero">
@@ -76,22 +79,23 @@ export default function DiscoverTonightPage({ email }) {
           </h1>
           <p className="discover-hero__sub">
             {preference?.last_city
-              ? `Events curated for you in ${preference.last_city}.`
-              : 'Events curated just for you, based on your preferences.'}
+              ? `Events happening today in ${preference.last_city}.`
+              : 'Events happening today, curated for you.'}
           </p>
-          <button
-            className="discover-tonight-page__btn"
-            onClick={handleDiscover}
-            disabled={loading}
-          >
-            {loading ? 'Finding events...' : 'Surprise Me'}
-          </button>
         </div>
       </section>
 
-      {error && <div className="discover-tonight-page__error">{error}</div>}
+      {loading && (
+        <div className="discover-tonight-page__placeholder">
+          <p>Finding events for you...</p>
+        </div>
+      )}
 
-      {events.length > 0 && (
+      {!loading && error && (
+        <div className="discover-tonight-page__error">{error}</div>
+      )}
+
+      {!loading && events.length > 0 && (
         <>
           <div className="discover-tonight-page__grid">
             {events.map((event) => (
@@ -101,19 +105,13 @@ export default function DiscoverTonightPage({ email }) {
           <div className="discover-tonight-page__refresh">
             <button
               className="discover-tonight-page__btn discover-tonight-page__btn--secondary"
-              onClick={handleDiscover}
+              onClick={handleTryAnother}
               disabled={loading}
             >
               Try Another
             </button>
           </div>
         </>
-      )}
-
-      {!searched && !loading && (
-        <div className="discover-tonight-page__placeholder">
-          <p>Click <strong>Surprise Me</strong> to discover what's happening tonight.</p>
-        </div>
       )}
     </div>
   );
