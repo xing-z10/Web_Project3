@@ -35,15 +35,18 @@ export function usePreferences(email) {
     load();
   }, [load]);
 
-  const update = useCallback(async (data) => {
-    if (!email) return;
-    try {
-      const updated = await updatePreference(email, data);
-      setPreference(updated);
-    } catch (err) {
-      setError(err.message);
-    }
-  }, [email]);
+  const update = useCallback(
+    async (data) => {
+      if (!email) return;
+      try {
+        const updated = await updatePreference(email, data);
+        setPreference(updated);
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+    [email]
+  );
 
   const remove = useCallback(async () => {
     if (!email) return;

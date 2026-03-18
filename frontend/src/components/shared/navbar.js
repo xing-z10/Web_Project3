@@ -4,18 +4,33 @@ import '../../styles/navbar.css';
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <NavLink to="/" className="navbar__brand"><i className="fa-solid fa-calendar-days"></i> EventHub</NavLink>
+      <NavLink to="/" className="navbar__brand">
+        <i className="fa-solid fa-calendar-days"></i> EventHub
+      </NavLink>
       <div className="navbar__links">
-        <NavLink to="/" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'} end>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? 'navbar__link active' : 'navbar__link')}
+          end
+        >
           Discover
         </NavLink>
-        <NavLink to="/add" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
+        <NavLink
+          to="/add"
+          className={({ isActive }) => (isActive ? 'navbar__link active' : 'navbar__link')}
+        >
           Add Event
         </NavLink>
-        <NavLink to="/discover-tonight" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
+        <NavLink
+          to="/discover-tonight"
+          className={({ isActive }) => (isActive ? 'navbar__link active' : 'navbar__link')}
+        >
           Tonight
         </NavLink>
-        <NavLink to="/preferences" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'}>
+        <NavLink
+          to="/preferences"
+          className={({ isActive }) => (isActive ? 'navbar__link active' : 'navbar__link')}
+        >
           Preferences
         </NavLink>
       </div>

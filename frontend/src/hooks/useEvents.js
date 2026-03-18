@@ -40,12 +40,21 @@ export function useEvents(initialFilters = {}) {
   }, [filters, fetchEvents]);
 
   const setFilter = useCallback((key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value, page: key === 'page' ? value : 1 }));
+    setFilters((prev) => ({ ...prev, [key]: value, page: key === 'page' ? value : 1 }));
   }, []);
 
   const resetFilters = useCallback(() => {
     setFilters({ ...DEFAULT_FILTERS });
   }, []);
 
-  return { events, total, loading, error, filters, setFilter, resetFilters, refetch: () => fetchEvents(filters) };
+  return {
+    events,
+    total,
+    loading,
+    error,
+    filters,
+    setFilter,
+    resetFilters,
+    refetch: () => fetchEvents(filters),
+  };
 }

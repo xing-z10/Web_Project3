@@ -36,7 +36,10 @@ export default function DiscoverTonightPage({ email }) {
       let pref = null;
       try {
         const data = await getPreference(email);
-        if (data) { setPreference(data); pref = data; }
+        if (data) {
+          setPreference(data);
+          pref = data;
+        }
       } catch (err) {
         console.error('Failed to load preference:', err.message);
       }
@@ -91,9 +94,7 @@ export default function DiscoverTonightPage({ email }) {
         </div>
       )}
 
-      {!loading && error && (
-        <div className="discover-tonight-page__error">{error}</div>
-      )}
+      {!loading && error && <div className="discover-tonight-page__error">{error}</div>}
 
       {!loading && events.length > 0 && (
         <>

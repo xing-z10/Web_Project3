@@ -6,7 +6,7 @@
 }
 
 .event-list__empty {
-  background: #FEFAE0;
+  background: #fefae0;
   border-radius: 12px;
   border: 1px dashed #ccd5ae;
 }
@@ -64,17 +64,19 @@
   padding: 7px 20px;
   border: 1px solid #ccd5ae;
   border-radius: 20px;
-  background: #FEFAE0;
+  background: #fefae0;
   color: #7a4f2e;
   font-size: 0.85rem;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.12s, border-color 0.12s;
+  transition:
+    background 0.12s,
+    border-color 0.12s;
 }
 
 .event-list__page-btn:hover:not(:disabled) {
-  background: #FAEDCD;
-  border-color: #D4A373;
+  background: #faedcd;
+  border-color: #d4a373;
 }
 
 .event-list__page-btn:disabled {

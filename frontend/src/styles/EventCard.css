@@ -63,7 +63,7 @@
 
 .event-card__badge--paid {
   background: rgba(26, 26, 26, 0.82);
-  color: #FEFAE0;
+  color: #fefae0;
 }
 
 /* Compare button — bottom-right corner */
@@ -84,13 +84,15 @@
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .event-card__compare:hover,
 .event-card__compare.active {
-  background: #D4A373;
-  color: #FEFAE0;
+  background: #d4a373;
+  color: #fefae0;
 }
 
 /* Body */
@@ -124,7 +126,7 @@
 }
 
 .event-card:hover .event-card__title {
-  color: #D4A373;
+  color: #d4a373;
 }
 
 .event-card__location {
@@ -158,12 +160,12 @@
 }
 
 .event-card:hover {
-  color: #D4A373;
+  color: #d4a373;
   letter-spacing: 0.03em;
 }
 
 /* Selected state */
 .event-card--selected .event-card__img-wrap {
-  outline: 2px solid #D4A373;
+  outline: 2px solid #d4a373;
   outline-offset: 2px;
 }

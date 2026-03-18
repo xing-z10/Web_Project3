@@ -25,7 +25,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<DiscoverPage email={email} />} />
         <Route path="/add" element={<AddEventPage />} />
-        <Route path="/preferences" element={<PreferencesPage email={email} onEmailChange={setEmail} />} />
+        <Route
+          path="/preferences"
+          element={<PreferencesPage email={email} onEmailChange={setEmail} />}
+        />
         <Route path="/discover-tonight" element={<DiscoverTonightPage email={email} />} />
       </Routes>
     </BrowserRouter>

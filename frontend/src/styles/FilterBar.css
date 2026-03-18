@@ -42,24 +42,27 @@
 }
 
 .filter-bar__input:focus {
-  border-color: #D4A373;
+  border-color: #d4a373;
 }
 
 .filter-bar__reset {
   padding: 7px 16px;
   border: 1px solid #ccd5ae;
   border-radius: 10px;
-  background: #FEFAE0;
+  background: #fefae0;
   color: #9a7050;
   font-size: 0.82rem;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  transition:
+    background 0.12s,
+    color 0.12s,
+    border-color 0.12s;
   align-self: flex-end;
 }
 
 .filter-bar__reset:hover {
-  background: #D4A373;
-  color: #FEFAE0;
-  border-color: #D4A373;
+  background: #d4a373;
+  color: #fefae0;
+  border-color: #d4a373;
 }

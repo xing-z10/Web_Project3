@@ -20,7 +20,6 @@
   letter-spacing: -0.5px;
 }
 
-
 .navbar__links {
   display: flex;
   gap: 8px;
@@ -33,15 +32,17 @@
   color: #3d2b1a;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .navbar__link:hover {
-  background: #FAEDCD;
-  color: #D4A373;
+  background: #faedcd;
+  color: #d4a373;
 }
 
 .navbar__link.active {
-  background: #D4A373;
-  color: #FEFAE0;
+  background: #d4a373;
+  color: #fefae0;
 }

@@ -19,7 +19,7 @@
 
 .add-event-page__title-accent {
   font-style: italic;
-  color: #C2936D;
+  color: #c2936d;
 }
 
 .add-event-page__subtitle {
@@ -78,14 +78,16 @@
   color: #1a1a1a;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   margin-bottom: 5px;
 }
 
 .add-event__field input:focus,
 .add-event__field select:focus,
 .add-event__field textarea:focus {
-  border-color: #C2936D;
+  border-color: #c2936d;
   box-shadow: 0 0 0 3px rgba(194, 147, 109, 0.15);
 }
 
@@ -133,11 +135,11 @@
   white-space: nowrap;
 }
 
-.add-event__toggle input[type="checkbox"] {
+.add-event__toggle input[type='checkbox'] {
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #5A5A40;
+  accent-color: #5a5a40;
   border-radius: 4px;
 }
 
@@ -173,13 +175,16 @@
   border: none;
   border-radius: 9999px;
   background: #588157d4;
-  color: #FFFBEB;
+  color: #fffbeb;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
   box-shadow: 0 4px 16px rgba(90, 90, 64, 0.25);
-  transition: background 0.15s, box-shadow 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    opacity 0.15s;
 }
 
 .add-event__submit:hover {

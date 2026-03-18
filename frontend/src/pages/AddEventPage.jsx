@@ -3,7 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { createEvent } from '../services/eventService';
 import '../styles/AddEventPage.css';
 
-const CATEGORIES = ['Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts', 'Livehouses', 'Movie Premieres', 'Parties', 'Theaters'];
+const CATEGORIES = [
+  'Art Exhibitions',
+  'Board Games',
+  'Comic Concerts',
+  'Concerts',
+  'Livehouses',
+  'Movie Premieres',
+  'Parties',
+  'Theaters',
+];
 const PLATFORMS = ['Eventbrite', 'Meetup', 'Facebook Events', 'University', 'Venue', 'Other'];
 
 const EMPTY_FORM = {
@@ -30,8 +39,8 @@ export default function AddEventPage() {
   const [submitError, setSubmitError] = useState('');
 
   function set(field, value) {
-    setForm(prev => ({ ...prev, [field]: value }));
-    setErrors(prev => ({ ...prev, [field]: '' }));
+    setForm((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: '' }));
   }
 
   function validate() {
@@ -48,7 +57,10 @@ export default function AddEventPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
 
     setSubmitting(true);
     setSubmitError('');
@@ -57,7 +69,12 @@ export default function AddEventPage() {
         title: form.title.trim(),
         description: form.description.trim(),
         category: form.category,
-        tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
+        tags: form.tags
+          ? form.tags
+              .split(',')
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : [],
         date: form.date,
         time: form.time,
         location: {
@@ -94,11 +111,13 @@ export default function AddEventPage() {
           <div className="add-event__section-label">Event Details</div>
 
           <div className="add-event__field">
-            <label>Title <span className="req">*</span></label>
+            <label>
+              Title <span className="req">*</span>
+            </label>
             <input
               type="text"
               value={form.title}
-              onChange={e => set('title', e.target.value)}
+              onChange={(e) => set('title', e.target.value)}
               placeholder="e.g. Underground Jazz at The Vault"
             />
             {errors.title && <span className="add-event__error">{errors.title}</span>}
@@ -109,17 +128,23 @@ export default function AddEventPage() {
             <textarea
               rows={3}
               value={form.description}
-              onChange={e => set('description', e.target.value)}
+              onChange={(e) => set('description', e.target.value)}
               placeholder="Brief description of the event..."
             />
           </div>
 
           <div className="add-event__row">
             <div className="add-event__field">
-              <label>Category <span className="req">*</span></label>
-              <select value={form.category} onChange={e => set('category', e.target.value)}>
+              <label>
+                Category <span className="req">*</span>
+              </label>
+              <select value={form.category} onChange={(e) => set('category', e.target.value)}>
                 <option value="">Select category</option>
-                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
               {errors.category && <span className="add-event__error">{errors.category}</span>}
             </div>
@@ -128,7 +153,7 @@ export default function AddEventPage() {
               <input
                 type="text"
                 value={form.tags}
-                onChange={e => set('tags', e.target.value)}
+                onChange={(e) => set('tags', e.target.value)}
                 placeholder="jazz, free, outdoor (comma-separated)"
               />
             </div>
@@ -138,13 +163,15 @@ export default function AddEventPage() {
 
           <div className="add-event__row">
             <div className="add-event__field">
-              <label>Date <span className="req">*</span></label>
-              <input type="date" value={form.date} onChange={e => set('date', e.target.value)} />
+              <label>
+                Date <span className="req">*</span>
+              </label>
+              <input type="date" value={form.date} onChange={(e) => set('date', e.target.value)} />
               {errors.date && <span className="add-event__error">{errors.date}</span>}
             </div>
             <div className="add-event__field">
               <label>Time</label>
-              <input type="time" value={form.time} onChange={e => set('time', e.target.value)} />
+              <input type="time" value={form.time} onChange={(e) => set('time', e.target.value)} />
             </div>
           </div>
 
@@ -156,16 +183,18 @@ export default function AddEventPage() {
               <input
                 type="text"
                 value={form.address}
-                onChange={e => set('address', e.target.value)}
+                onChange={(e) => set('address', e.target.value)}
                 placeholder="123 Main St"
               />
             </div>
             <div className="add-event__field">
-              <label>City <span className="req">*</span></label>
+              <label>
+                City <span className="req">*</span>
+              </label>
               <input
                 type="text"
                 value={form.city}
-                onChange={e => set('city', e.target.value)}
+                onChange={(e) => set('city', e.target.value)}
                 placeholder="New York"
               />
               {errors.city && <span className="add-event__error">{errors.city}</span>}
@@ -179,19 +208,21 @@ export default function AddEventPage() {
               <input
                 type="checkbox"
                 checked={form.isFree}
-                onChange={e => set('isFree', e.target.checked)}
+                onChange={(e) => set('isFree', e.target.checked)}
               />
               <span>This event is free</span>
             </label>
             {!form.isFree && (
               <div className="add-event__field">
-                <label>Price ($) <span className="req">*</span></label>
+                <label>
+                  Price ($) <span className="req">*</span>
+                </label>
                 <input
                   type="number"
                   min="0"
                   step="0.01"
                   value={form.price}
-                  onChange={e => set('price', e.target.value)}
+                  onChange={(e) => set('price', e.target.value)}
                   placeholder="0.00"
                 />
                 {errors.price && <span className="add-event__error">{errors.price}</span>}
@@ -203,20 +234,29 @@ export default function AddEventPage() {
 
           <div className="add-event__row">
             <div className="add-event__field" style={{ flex: 2 }}>
-              <label>Source URL <span className="req">*</span></label>
+              <label>
+                Source URL <span className="req">*</span>
+              </label>
               <input
                 type="url"
                 value={form.sourceUrl}
-                onChange={e => set('sourceUrl', e.target.value)}
+                onChange={(e) => set('sourceUrl', e.target.value)}
                 placeholder="https://eventbrite.com/..."
               />
               {errors.sourceUrl && <span className="add-event__error">{errors.sourceUrl}</span>}
             </div>
             <div className="add-event__field">
               <label>Platform</label>
-              <select value={form.sourcePlatform} onChange={e => set('sourcePlatform', e.target.value)}>
+              <select
+                value={form.sourcePlatform}
+                onChange={(e) => set('sourcePlatform', e.target.value)}
+              >
                 <option value="">Select platform</option>
-                {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
+                {PLATFORMS.map((p) => (
+                  <option key={p} value={p}>
+                    {p}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -226,7 +266,7 @@ export default function AddEventPage() {
             <input
               type="url"
               value={form.imageUrl}
-              onChange={e => set('imageUrl', e.target.value)}
+              onChange={(e) => set('imageUrl', e.target.value)}
               placeholder="https://..."
             />
           </div>

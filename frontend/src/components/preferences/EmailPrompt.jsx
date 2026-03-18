@@ -23,8 +23,7 @@ function EmailPrompt({ onEmailSubmit }) {
       <div className="email-prompt__card">
         <h2 className="email-prompt__title">Welcome to EventHub</h2>
         <p className="email-prompt__desc">
-          Enter your email to save favorites and preferences across sessions.
-          No account required.
+          Enter your email to save favorites and preferences across sessions. No account required.
         </p>
         <form className="email-prompt__form" onSubmit={handleSubmit}>
           <input

@@ -1,13 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { getPreference, updatePreference, deletePreference, createPreference } from '../services/preferenceService';
+import {
+  getPreference,
+  updatePreference,
+  deletePreference,
+  createPreference,
+} from '../services/preferenceService';
 import { getEventByNumericId } from '../services/eventService';
 import EventCard from '../components/events/EventCard';
 import '../styles/PreferencesPage.css';
 
 const CATEGORIES = [
-  'Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts',
-  'Livehouses', 'Movie Premieres', 'Parties', 'Theaters',
+  'Art Exhibitions',
+  'Board Games',
+  'Comic Concerts',
+  'Concerts',
+  'Livehouses',
+  'Movie Premieres',
+  'Parties',
+  'Theaters',
 ];
 
 export default function PreferencesPage({ email, onEmailChange }) {
@@ -46,9 +57,12 @@ export default function PreferencesPage({ email, onEmailChange }) {
   useEffect(() => {
     async function loadComparisons() {
       const ids = [pref?.comparison_1, pref?.comparison_2, pref?.comparison_3].filter(Boolean);
-      if (ids.length === 0) { setComparisonEvents([]); return; }
+      if (ids.length === 0) {
+        setComparisonEvents([]);
+        return;
+      }
       try {
-        const results = await Promise.all(ids.map(id => getEventByNumericId(id)));
+        const results = await Promise.all(ids.map((id) => getEventByNumericId(id)));
         setComparisonEvents(results.filter(Boolean));
       } catch (err) {
         console.error('Failed to load comparison events:', err.message);
@@ -101,7 +115,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
   async function handleRemoveComparison(eventNumericId) {
     const fields = ['comparison_1', 'comparison_2', 'comparison_3'];
     const update = {};
-    fields.forEach(f => {
+    fields.forEach((f) => {
       if (pref[f] === eventNumericId) update[f] = null;
     });
     try {
@@ -169,16 +183,37 @@ export default function PreferencesPage({ email, onEmailChange }) {
                   className="preferences-page__email-input"
                   type="email"
                   value={newEmail}
-                  onChange={e => setNewEmail(e.target.value)}
+                  onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="new@example.com"
                 />
-                <button type="button" className="preferences-page__email-save" onClick={handleEmailSave}>Save</button>
-                <button type="button" className="preferences-page__email-cancel" onClick={() => setEditingEmail(false)}>Cancel</button>
+                <button
+                  type="button"
+                  className="preferences-page__email-save"
+                  onClick={handleEmailSave}
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="preferences-page__email-cancel"
+                  onClick={() => setEditingEmail(false)}
+                >
+                  Cancel
+                </button>
               </div>
             ) : (
               <div className="preferences-page__email-display">
                 <span className="preferences-page__email">{email}</span>
-                <button type="button" className="preferences-page__email-change" onClick={() => { setNewEmail(email); setEditingEmail(true); }}>Change</button>
+                <button
+                  type="button"
+                  className="preferences-page__email-change"
+                  onClick={() => {
+                    setNewEmail(email);
+                    setEditingEmail(true);
+                  }}
+                >
+                  Change
+                </button>
               </div>
             )}
           </div>
@@ -203,7 +238,11 @@ export default function PreferencesPage({ email, onEmailChange }) {
               <label>Used by Discover Tonight to suggest events</label>
               <select value={preferredCate} onChange={(e) => setPreferredCate(e.target.value)}>
                 <option value="">None</option>
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -212,7 +251,11 @@ export default function PreferencesPage({ email, onEmailChange }) {
               <label>Hide this category from your feed</label>
               <select value={excludeCate} onChange={(e) => setExcludeCate(e.target.value)}>
                 <option value="">None</option>
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -232,7 +275,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
         <div id="comparisons" ref={comparisonsRef} className="preferences-page__favorites">
           <h2 className="preferences-page__favorites-title">Saved Comparisons</h2>
           <div className="preferences-page__favorites-grid">
-            {comparisonEvents.map(event => (
+            {comparisonEvents.map((event) => (
               <div key={event._id} className="preferences-page__comparison-item">
                 <EventCard event={event} />
                 <button

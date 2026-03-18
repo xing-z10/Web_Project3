@@ -29,10 +29,10 @@ export default function DiscoverPage({ email }) {
         if (!pref) return;
         const ids = [pref.comparison_1, pref.comparison_2, pref.comparison_3].filter(Boolean);
         if (ids.length === 0) return;
-        const results = await Promise.all(ids.map(id => getEventByNumericId(id)));
+        const results = await Promise.all(ids.map((id) => getEventByNumericId(id)));
         const valid = results.filter(Boolean);
         setSavedEvents(valid);
-        setCompareIds(valid.map(e => e._id));
+        setCompareIds(valid.map((e) => e._id));
       } catch (err) {
         console.error('Failed to load saved comparisons:', err.message);
       }
@@ -42,17 +42,21 @@ export default function DiscoverPage({ email }) {
 
   async function handleToggleCompare(event) {
     const next = compareIds.includes(event._id)
-      ? compareIds.filter(id => id !== event._id)
-      : compareIds.length >= 3 ? compareIds : [...compareIds, event._id];
+      ? compareIds.filter((id) => id !== event._id)
+      : compareIds.length >= 3
+        ? compareIds
+        : [...compareIds, event._id];
 
     setCompareIds(next);
 
     // Map _ids back to numeric ids and sync to DB
     const allKnown = [...events, ...savedEvents];
-    const nextNumericIds = next.map(id => {
-      const e = allKnown.find(ev => ev._id === id);
-      return e?.id || null;
-    }).filter(Boolean);
+    const nextNumericIds = next
+      .map((id) => {
+        const e = allKnown.find((ev) => ev._id === id);
+        return e?.id || null;
+      })
+      .filter(Boolean);
 
     try {
       await updatePreference(email, {
@@ -66,9 +70,9 @@ export default function DiscoverPage({ email }) {
   }
 
   // Merge saved events with events from current list
-  const compareEvents = compareIds.map(id =>
-    events.find(e => e._id === id) || savedEvents.find(e => e._id === id)
-  ).filter(Boolean);
+  const compareEvents = compareIds
+    .map((id) => events.find((e) => e._id === id) || savedEvents.find((e) => e._id === id))
+    .filter(Boolean);
 
   return (
     <div className="discover-page">
@@ -87,7 +91,8 @@ export default function DiscoverPage({ email }) {
             </Link>
           </div>
           <p className="discover-hero__sub">
-            A unified view of concerts, festivals, and niche happenings. No logins, just exploration.
+            A unified view of concerts, festivals, and niche happenings. No logins, just
+            exploration.
           </p>
         </div>
       </section>
@@ -96,7 +101,7 @@ export default function DiscoverPage({ email }) {
         <SearchBar value={filters.search} onSearch={handleSearch} />
         <button
           className={`discover-toolbar__filter-btn ${filtersOpen ? 'active' : ''}`}
-          onClick={() => setFiltersOpen(o => !o)}
+          onClick={() => setFiltersOpen((o) => !o)}
         >
           <i className="fa-solid fa-filter"></i>
           Filters
@@ -115,7 +120,9 @@ export default function DiscoverPage({ email }) {
         </div>
       </div>
 
-      {filtersOpen && <FilterBar filters={filters} onSetFilter={setFilter} onReset={resetFilters} />}
+      {filtersOpen && (
+        <FilterBar filters={filters} onSetFilter={setFilter} onReset={resetFilters} />
+      )}
 
       {error && <div className="discover-page__error">Error: {error}</div>}
 
@@ -139,19 +146,29 @@ export default function DiscoverPage({ email }) {
             Comparing {compareEvents.length}/3 event{compareEvents.length !== 1 ? 's' : ''}
           </span>
           <div className="compare-bar__items">
-            {compareEvents.map(e => (
+            {compareEvents.map((e) => (
               <span key={e._id} className="compare-bar__item">
                 {e.title}
-                <button onClick={() => handleToggleCompare(e)} className="compare-bar__remove">✕</button>
+                <button onClick={() => handleToggleCompare(e)} className="compare-bar__remove">
+                  ✕
+                </button>
               </span>
             ))}
           </div>
-          <button className="compare-bar__clear" onClick={() => {
-            setCompareIds([]);
-            setSavedEvents([]);
-            updatePreference(email, { comparison_1: null, comparison_2: null, comparison_3: null })
-              .catch(err => console.error('Failed to clear comparison:', err.message));
-          }}>Clear</button>
+          <button
+            className="compare-bar__clear"
+            onClick={() => {
+              setCompareIds([]);
+              setSavedEvents([]);
+              updatePreference(email, {
+                comparison_1: null,
+                comparison_2: null,
+                comparison_3: null,
+              }).catch((err) => console.error('Failed to clear comparison:', err.message));
+            }}
+          >
+            Clear
+          </button>
           <button
             className="compare-bar__detail"
             onClick={() => navigate('/preferences#comparisons')}
