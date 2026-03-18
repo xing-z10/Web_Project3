@@ -9,15 +9,14 @@ const PLATFORM_COLORS = {
 };
 
 const CATEGORY_IMAGES = {
-  music:     '/images/category-defaults/music.jpg',
-  tech:      '/images/category-defaults/tech.jpg',
-  food:      '/images/category-defaults/food.jpg',
-  art:       '/images/category-defaults/art.jpg',
-  sports:    '/images/category-defaults/sports.jpg',
-  community: '/images/category-defaults/community.jpg',
-  film:      '/images/category-defaults/film.jpg',
-  education: '/images/category-defaults/education.jpg',
-  outdoors:  '/images/category-defaults/outdoors.jpg',
+  'art exhibitions': '/images/category-defaults/art.jpg',
+  'board games':     '/images/category-defaults/community.jpg',
+  'comic concerts':  '/images/category-defaults/music.jpg',
+  'concerts':        '/images/category-defaults/concert.jpg',
+  'livehouses':      '/images/category-defaults/livehouse.jpg',
+  'movie premieres': '/images/category-defaults/film.jpg',
+  'parties':         '/images/category-defaults/parties.jpg',
+  'theaters':        '/images/category-defaults/theaters.jpg',
 };
 
 function getCategoryImage(category) {

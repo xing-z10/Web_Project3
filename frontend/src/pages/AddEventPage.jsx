@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createEvent } from '../services/eventService';
 import '../styles/AddEventPage.css';
 
-const CATEGORIES = ['Music', 'Tech', 'Food', 'Art', 'Sports', 'Community', 'Film', 'Education', 'Outdoors', 'Other'];
+const CATEGORIES = ['Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts', 'Livehouses', 'Movie Premieres', 'Parties', 'Theaters'];
 const PLATFORMS = ['Eventbrite', 'Meetup', 'Facebook Events', 'University', 'Venue', 'Other'];
 
 const EMPTY_FORM = {
@@ -81,7 +81,9 @@ export default function AddEventPage() {
   return (
     <div className="add-event-page">
       <div className="add-event-page__card">
-        <h1 className="add-event-page__title">Add an Event</h1>
+        <h1 className="add-event-page__title">
+          Add an <span className="add-event-page__title-accent">Event</span>
+        </h1>
         <p className="add-event-page__subtitle">
           Surface a niche happening that isn't listed on major platforms.
         </p>

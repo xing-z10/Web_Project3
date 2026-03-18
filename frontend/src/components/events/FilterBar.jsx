@@ -1,6 +1,6 @@
 import '../../styles/FilterBar.css';
 
-const CATEGORIES = ['Music', 'Tech', 'Food', 'Art', 'Sports', 'Community', 'Film', 'Education', 'Outdoors', 'Other'];
+const CATEGORIES = ['Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts', 'Livehouses', 'Movie Premieres', 'Parties', 'Theaters'];
 const PLATFORMS = ['Eventbrite', 'Meetup', 'Facebook Events', 'University', 'Venue'];
 
 export default function FilterBar({ filters, onSetFilter, onReset }) {
