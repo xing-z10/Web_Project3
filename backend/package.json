@@ -5,6 +5,7 @@
     "mongodb": "^7.1.0"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
     "prettier": "^3.8.1"
   },
   "scripts": {
