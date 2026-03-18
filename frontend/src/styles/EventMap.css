@@ -1,0 +1,42 @@
+.event-map {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.event-map__container {
+  height: 520px;
+  width: 100%;
+}
+
+.event-map__empty {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px dashed #e2e8f0;
+  border-radius: 10px;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+.event-map__popup {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.event-map__popup strong {
+  font-size: 0.9rem;
+}
+
+.event-map__popup a {
+  color: #4f6ef7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.event-map__free {
+  color: #065f46;
+  font-weight: 600;
+}

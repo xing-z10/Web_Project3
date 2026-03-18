@@ -1,0 +1,130 @@
+.discover-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.discover-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.discover-page__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.discover-page__view-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.view-btn {
+  padding: 7px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  color: #718096;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.view-btn:hover {
+  background: #f0f4ff;
+  color: #4f6ef7;
+}
+
+.view-btn.active {
+  background: #4f6ef7;
+  color: #fff;
+  border-color: #4f6ef7;
+}
+
+.discover-page__error {
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: #e53e3e;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+/* Sticky comparison bar at bottom */
+.discover-page__compare-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a2e;
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 200;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+}
+
+.compare-bar__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #a0aec0;
+}
+
+.compare-bar__items {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.compare-bar__item {
+  background: #2d3748;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compare-bar__remove {
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.compare-bar__remove:hover { color: #fc8181; }
+
+.compare-bar__clear {
+  background: none;
+  border: 1px solid #4a5568;
+  color: #a0aec0;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+
+.compare-bar__clear:hover {
+  color: #fc8181;
+  border-color: #fc8181;
+}
