@@ -2,6 +2,7 @@
 
 A unified, no-login web application that aggregates public events into a single searchable, filterable interface. Discover concerts, festivals, tech meetups, exhibitions, and more — all in one place.
 
+**Live Demo** [https://eventhub-t9pe.onrender.com](https://eventhub-t9pe.onrender.com)\
 **Class Link** [Course Detail](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)
 
 ---
