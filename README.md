@@ -14,6 +14,42 @@ A unified, no-login web application that aggregates public events into a single 
 
 ---
 
+## Design Mockup
+<img width="976" height="623" alt="image" src="https://github.com/user-attachments/assets/d953fd47-f335-4145-9bd5-e86a34589d76" />
+<img width="976" height="623" alt="image" src="https://github.com/user-attachments/assets/7d7cb2f0-23e4-4e34-b38d-222917a99872" />
+
+---
+
+## Screenshot
+
+
+## Project Structure
+
+```
+Web_Project3/
+├── backend/
+│   ├── server.js              # Express app, MongoDB connection
+│   └── routes/
+│       ├── event.js           # Event CRUD + filtering API
+│       └── preference.js      # User preference API
+└── frontend/
+    └── src/
+        ├── App.jsx            # Routing (/, /add, /preferences)
+        ├── pages/
+        │   ├── DiscoverPage.jsx
+        │   ├── AddEventPage.jsx
+        │   └── PreferencesPage.jsx
+        │   └── DiscoverTonight.jsx
+        ├── components/
+        │   ├── shared/navbar.js
+        │   └── events/        # EventCard, EventList, EventMap, FilterBar, SearchBar
+        ├── hooks/             # useEvents, usePreferences
+        ├── services/          # eventService, preferenceService
+        └── styles/            # All CSS files
+```
+
+---
+
 ## Getting Started
 
 ### 1. Clone the repo
@@ -54,33 +90,6 @@ npm start
 ```
 
 The app will open at `http://localhost:3000`.
-
----
-
-## Project Structure
-
-```
-Web_Project3/
-├── backend/
-│   ├── server.js              # Express app, MongoDB connection
-│   └── routes/
-│       ├── event.js           # Event CRUD + filtering API
-│       └── preference.js      # User preference API
-└── frontend/
-    └── src/
-        ├── App.jsx            # Routing (/, /add, /preferences)
-        ├── pages/
-        │   ├── DiscoverPage.jsx
-        │   ├── AddEventPage.jsx
-        │   └── PreferencesPage.jsx
-        │   └── DiscoverTonight.jsx
-        ├── components/
-        │   ├── shared/navbar.js
-        │   └── events/        # EventCard, EventList, EventMap, FilterBar, SearchBar
-        ├── hooks/             # useEvents, usePreferences
-        ├── services/          # eventService, preferenceService
-        └── styles/            # All CSS files
-```
 
 ---
 
