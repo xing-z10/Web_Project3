@@ -21,7 +21,6 @@ module.exports = (db) => {
   }
 
   // GET /api/events/today
-  // Frontend sends today's dateFrom and dateTo, backend matches against DB
   router.get('/today', async (req, res) => {
     try {
       const { city, category, dateFrom, dateTo } = req.query;
@@ -38,7 +37,6 @@ module.exports = (db) => {
         { $sample: { size: 3 } },
       ]).toArray();
 
-      // Fallback 1: drop city filter
       if (results.length === 0 && city) {
         delete filter.location_city;
         results = await col.aggregate([
@@ -47,7 +45,6 @@ module.exports = (db) => {
         ]).toArray();
       }
 
-      // Fallback 2: drop category filter
       if (results.length === 0 && category) {
         delete filter.category;
         results = await col.aggregate([
@@ -58,6 +55,17 @@ module.exports = (db) => {
 
       if (results.length === 0) return res.status(404).json({ error: 'No events found for today' });
       res.json(results.map(toApiDoc));
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // GET /api/events/byid/:id — find by numeric id field
+  router.get('/byid/:id', async (req, res) => {
+    try {
+      const event = await col.findOne({ id: parseInt(req.params.id) });
+      if (!event) return res.status(404).json({ error: 'Event not found' });
+      res.json(toApiDoc(event));
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

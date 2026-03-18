@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getPreference, updatePreference, deletePreference } from '../services/preferenceService';
+import { getEventByNumericId } from '../services/eventService';
+import EventCard from '../components/events/EventCard';
 import '../styles/PreferencesPage.css';
 
 const CATEGORIES = [
@@ -16,11 +18,12 @@ export default function PreferencesPage({ email, onEmailChange }) {
   const [error, setError] = useState(null);
   const [editingEmail, setEditingEmail] = useState(false);
   const [newEmail, setNewEmail] = useState('');
-
   const [preferredCate, setPreferredCate] = useState('');
   const [excludeCate, setExcludeCate] = useState('');
   const [lastCity, setLastCity] = useState('');
+  const [comparisonEvents, setComparisonEvents] = useState([]);
 
+  // Load preference
   useEffect(() => {
     async function load() {
       try {
@@ -39,6 +42,21 @@ export default function PreferencesPage({ email, onEmailChange }) {
     }
     load();
   }, [email]);
+
+  // Load comparison events from DB numeric ids
+  useEffect(() => {
+    async function loadComparisons() {
+      const ids = [pref?.comparison_1, pref?.comparison_2, pref?.comparison_3].filter(Boolean);
+      if (ids.length === 0) { setComparisonEvents([]); return; }
+      try {
+        const results = await Promise.all(ids.map(id => getEventByNumericId(id)));
+        setComparisonEvents(results.filter(Boolean));
+      } catch (err) {
+        console.error('Failed to load comparison events:', err.message);
+      }
+    }
+    loadComparisons();
+  }, [pref]);
 
   async function handleSave(e) {
     e.preventDefault();
@@ -69,6 +87,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
       setPreferredCate('');
       setExcludeCate('');
       setLastCity('');
+      setComparisonEvents([]);
     } catch (err) {
       setError(err.message);
     }
@@ -176,6 +195,17 @@ export default function PreferencesPage({ email, onEmailChange }) {
           </form>
         </div>
       </div>
+
+      {comparisonEvents.length > 0 && (
+        <div className="preferences-page__favorites">
+          <h2 className="preferences-page__favorites-title">Saved Comparisons</h2>
+          <div className="preferences-page__favorites-grid">
+            {comparisonEvents.map(event => (
+              <EventCard key={event._id} event={event} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

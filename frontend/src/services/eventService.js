@@ -25,6 +25,14 @@ export async function getTodayEvents(params = {}) {
   return res.json();
 }
 
+// GET /api/events/byid/:id — find by numeric id field
+export async function getEventByNumericId(id) {
+  const res = await fetch(`${BASE_URL}/events/byid/${id}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error('Failed to fetch event');
+  return res.json();
+}
+
 // GET /api/events/:id
 export async function getEventById(id) {
   const res = await fetch(`${BASE_URL}/events/${id}`);

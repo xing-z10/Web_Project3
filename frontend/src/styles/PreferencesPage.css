@@ -256,6 +256,27 @@
   border-color: #e53e3e;
 }
 
+/* ── Comparisons ─────────────────────────────────── */
+.preferences-page__favorites {
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding: 0 24px;
+}
+
+.preferences-page__favorites-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+}
+
+.preferences-page__favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 600px) {
   .preferences-page__content {
