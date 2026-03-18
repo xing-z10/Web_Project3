@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useEvents } from '../hooks/useEvents';
 import FilterBar from '../components/events/FilterBar';
 import SearchBar from '../components/events/SearchBar';
@@ -8,6 +9,7 @@ import '../styles/DiscoverPage.css';
 
 export default function DiscoverPage() {
   const [view, setView] = useState('list'); // 'list' | 'map'
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [compareIds, setCompareIds] = useState([]);
   const { events, total, loading, error, filters, setFilter, resetFilters } = useEvents();
 
@@ -25,26 +27,41 @@ export default function DiscoverPage() {
 
   return (
     <div className="discover-page">
-      <div className="discover-page__header">
-        <h1 className="discover-page__title">Discover Events</h1>
-        <div className="discover-page__view-toggle">
-          <button
-            className={`view-btn ${view === 'list' ? 'active' : ''}`}
-            onClick={() => setView('list')}
-          >
-            ☰ List
-          </button>
-          <button
-            className={`view-btn ${view === 'map' ? 'active' : ''}`}
-            onClick={() => setView('map')}
-          >
-            🗺 Map
-          </button>
+      <section className="discover-hero">
+        <div className="discover-hero__text">
+          <h1 className="discover-hero__heading">
+            Discover your <em className="discover-hero__accent">city's pulse.</em>
+          </h1>
+          <p className="discover-hero__sub">
+            A unified view of concerts, festivals, and niche happenings. No logins, just exploration.
+          </p>
+        </div>
+      </section>
+
+      <div className="discover-toolbar">
+        <SearchBar value={filters.search} onSearch={handleSearch} />
+        <button
+          className={`discover-toolbar__filter-btn ${filtersOpen ? 'active' : ''}`}
+          onClick={() => setFiltersOpen(o => !o)}
+        >
+          <i className="fa-solid fa-filter"></i>
+          Filters
+        </button>
+        <div className="view-toggle-container">
+          <input
+            type="checkbox"
+            id="view-toggle-checkbox"
+            checked={view === 'map'}
+            onChange={(e) => setView(e.target.checked ? 'map' : 'list')}
+          />
+          <label htmlFor="view-toggle-checkbox" className="view-toggle-label">
+            <span className="view-toggle-text view-toggle-text--list">LIST</span>
+            <span className="view-toggle-text view-toggle-text--map">MAP</span>
+          </label>
         </div>
       </div>
 
-      <SearchBar value={filters.search} onSearch={handleSearch} />
-      <FilterBar filters={filters} onSetFilter={setFilter} onReset={resetFilters} />
+      {filtersOpen && <FilterBar filters={filters} onSetFilter={setFilter} onReset={resetFilters} />}
 
       {error && <div className="discover-page__error">Error: {error}</div>}
 
