@@ -2,6 +2,7 @@
   padding-bottom: 80px;
 }
 
+/* ── Loading ─────────────────────────────────────── */
 .preferences-page__loading {
   text-align: center;
   color: rgba(26, 26, 26, 0.45);
@@ -33,6 +34,7 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+  flex-wrap: wrap;
 }
 
 .preferences-page__email-label {
@@ -47,6 +49,85 @@
   font-size: 0.9rem;
   font-weight: 500;
   color: #588157;
+}
+
+/* ── Email edit ──────────────────────────────────── */
+.preferences-page__email-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.preferences-page__email-change {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #588157;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.preferences-page__email-change:hover {
+  color: #3a5c37;
+}
+
+.preferences-page__email-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.preferences-page__email-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(26, 26, 26, 0.15);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.preferences-page__email-input:focus {
+  border-color: #C2936D;
+}
+
+.preferences-page__email-save {
+  padding: 8px 16px;
+  background: #588157d4;
+  color: #fffbeb;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.preferences-page__email-save:hover {
+  background: #4a5c3f;
+}
+
+.preferences-page__email-cancel {
+  padding: 8px 16px;
+  background: none;
+  color: rgba(26, 26, 26, 0.45);
+  border: 1px solid rgba(26, 26, 26, 0.15);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.preferences-page__email-cancel:hover {
+  color: #1a1a1a;
 }
 
 /* ── Alerts ──────────────────────────────────────── */
@@ -190,5 +271,9 @@
   .preferences-page__delete-btn {
     width: 100%;
     text-align: center;
+  }
+
+  .preferences-page__email-edit {
+    flex-wrap: wrap;
   }
 }

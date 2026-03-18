@@ -8,12 +8,14 @@ const CATEGORIES = [
   'Livehouses', 'Movie Premieres', 'Parties', 'Theaters',
 ];
 
-export default function PreferencesPage({ email }) {
+export default function PreferencesPage({ email, onEmailChange }) {
   const [pref, setPref] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState(null);
+  const [editingEmail, setEditingEmail] = useState(false);
+  const [newEmail, setNewEmail] = useState('');
 
   const [preferredCate, setPreferredCate] = useState('');
   const [excludeCate, setExcludeCate] = useState('');
@@ -72,6 +74,18 @@ export default function PreferencesPage({ email }) {
     }
   }
 
+  function handleEmailSave() {
+    const trimmed = newEmail.toLowerCase().trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    localStorage.setItem('eventhub_email', trimmed);
+    onEmailChange(trimmed);
+    setEditingEmail(false);
+    setError(null);
+  }
+
   if (loading) {
     return (
       <div className="preferences-page">
@@ -95,9 +109,27 @@ export default function PreferencesPage({ email }) {
 
       <div className="preferences-page__content">
         <div className="preferences-page__card">
+
           <div className="preferences-page__email-row">
             <span className="preferences-page__email-label">Signed in as</span>
-            <span className="preferences-page__email">{email}</span>
+            {editingEmail ? (
+              <div className="preferences-page__email-edit">
+                <input
+                  className="preferences-page__email-input"
+                  type="email"
+                  value={newEmail}
+                  onChange={e => setNewEmail(e.target.value)}
+                  placeholder="new@example.com"
+                />
+                <button type="button" className="preferences-page__email-save" onClick={handleEmailSave}>Save</button>
+                <button type="button" className="preferences-page__email-cancel" onClick={() => setEditingEmail(false)}>Cancel</button>
+              </div>
+            ) : (
+              <div className="preferences-page__email-display">
+                <span className="preferences-page__email">{email}</span>
+                <button type="button" className="preferences-page__email-change" onClick={() => { setNewEmail(email); setEditingEmail(true); }}>Change</button>
+              </div>
+            )}
           </div>
 
           {error && <div className="preferences-page__alert">{error}</div>}
@@ -118,44 +150,26 @@ export default function PreferencesPage({ email }) {
             <div className="preferences-page__section-label">Preferred Category</div>
             <div className="preferences-page__field">
               <label>Used by Discover Tonight to suggest events</label>
-              <select
-                value={preferredCate}
-                onChange={(e) => setPreferredCate(e.target.value)}
-              >
+              <select value={preferredCate} onChange={(e) => setPreferredCate(e.target.value)}>
                 <option value="">None</option>
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
+                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
             <div className="preferences-page__section-label">Excluded Category</div>
             <div className="preferences-page__field">
               <label>Hide this category from your feed</label>
-              <select
-                value={excludeCate}
-                onChange={(e) => setExcludeCate(e.target.value)}
-              >
+              <select value={excludeCate} onChange={(e) => setExcludeCate(e.target.value)}>
                 <option value="">None</option>
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
+                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
             <div className="preferences-page__actions">
-              <button
-                type="button"
-                className="preferences-page__delete-btn"
-                onClick={handleDelete}
-              >
+              <button type="button" className="preferences-page__delete-btn" onClick={handleDelete}>
                 Delete Preferences
               </button>
-              <button
-                type="submit"
-                className="preferences-page__save-btn"
-                disabled={saving}
-              >
+              <button type="submit" className="preferences-page__save-btn" disabled={saving}>
                 {saving ? 'Saving...' : 'Save Preferences'}
               </button>
             </div>
@@ -168,4 +182,5 @@ export default function PreferencesPage({ email }) {
 
 PreferencesPage.propTypes = {
   email: PropTypes.string.isRequired,
+  onEmailChange: PropTypes.func.isRequired,
 };
