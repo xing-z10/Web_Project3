@@ -4,20 +4,22 @@
   justify-content: space-between;
   padding: 0 24px;
   height: 56px;
-  background: #fff;
-  border-bottom: 1px solid #e2e8f0;
+  background: #e9edc960;
+  border-bottom: none;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .navbar__brand {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #4f6ef7;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #3a5a40;
   text-decoration: none;
   letter-spacing: -0.5px;
 }
+
 
 .navbar__links {
   display: flex;
@@ -28,18 +30,18 @@
   padding: 6px 14px;
   border-radius: 6px;
   text-decoration: none;
-  color: #4a5568;
+  color: #3d2b1a;
   font-size: 0.9rem;
   font-weight: 500;
   transition: background 0.15s, color 0.15s;
 }
 
 .navbar__link:hover {
-  background: #f0f4ff;
-  color: #4f6ef7;
+  background: #FAEDCD;
+  color: #D4A373;
 }
 
 .navbar__link.active {
-  background: #4f6ef7;
-  color: #fff;
+  background: #D4A373;
+  color: #FEFAE0;
 }

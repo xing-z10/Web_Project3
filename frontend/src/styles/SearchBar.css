@@ -2,41 +2,51 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-bottom: 12px;
-  transition: border-color 0.15s;
+  background: #e9edc960;
+  border: none;
+  border-radius: 40px;
+  height: 62px;
+  padding: 0 22px;
+  flex: 1;
+  box-shadow:
+    inset 0 0 5px 4px rgba(254, 250, 224, 0.9),
+    inset 0 0 20px 1px rgba(180, 140, 100, 0.35),
+    10px 20px 30px rgba(180, 140, 100, 0.12),
+    inset 0 0 0 3px rgba(204, 213, 174, 0.8);
+  transition: box-shadow 0.15s;
 }
 
 .search-bar:focus-within {
-  border-color: #4f6ef7;
-  box-shadow: 0 0 0 3px #4f6ef720;
+  box-shadow:
+    inset 0 0 5px 4px rgba(254, 250, 224, 0.9),
+    inset 0 0 20px 1px rgba(180, 140, 100, 0.35),
+    10px 20px 30px rgba(180, 140, 100, 0.12),
+    inset 0 0 0 3px rgba(212, 163, 115, 0.7);
 }
 
 .search-bar__icon {
   font-size: 1rem;
-  color: #a0aec0;
+  color: #9a7050;
 }
 
 .search-bar__input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 0.95rem;
-  color: #1a1a2e;
+  font-size: 0.9rem;
+  color: #3d2b1a;
   background: transparent;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .search-bar__input::placeholder {
-  color: #a0aec0;
+  color: #b09070;
 }
 
 .search-bar__clear {
   border: none;
   background: none;
-  color: #a0aec0;
+  color: #b09070;
   cursor: pointer;
   font-size: 0.8rem;
   padding: 2px 4px;
@@ -45,5 +55,5 @@
 }
 
 .search-bar__clear:hover {
-  color: #e53e3e;
+  color: #D4A373;
 }

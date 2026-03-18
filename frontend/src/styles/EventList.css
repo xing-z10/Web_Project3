@@ -1,26 +1,55 @@
 .event-list__status {
   text-align: center;
   padding: 48px 24px;
-  color: #718096;
+  color: #9a7050;
   font-size: 0.95rem;
 }
 
 .event-list__empty {
-  background: #fff;
-  border-radius: 10px;
-  border: 1px dashed #e2e8f0;
+  background: #FEFAE0;
+  border-radius: 12px;
+  border: 1px dashed #ccd5ae;
+}
+
+.event-list__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.event-list__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3d2b1a;
+  margin: 0;
 }
 
 .event-list__count {
-  font-size: 0.85rem;
-  color: #718096;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  color: #9a7050;
+  margin-left: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
 }
 
 .event-list__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 40px;
+}
+
+@media (max-width: 900px) {
+  .event-list__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .event-list__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .event-list__pagination {
@@ -28,31 +57,33 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 40px;
 }
 
 .event-list__page-btn {
-  padding: 7px 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  background: #fff;
-  color: #4f6ef7;
+  padding: 7px 20px;
+  border: 1px solid #ccd5ae;
+  border-radius: 20px;
+  background: #FEFAE0;
+  color: #7a4f2e;
   font-size: 0.85rem;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.12s;
+  transition: background 0.12s, border-color 0.12s;
 }
 
 .event-list__page-btn:hover:not(:disabled) {
-  background: #f0f4ff;
+  background: #FAEDCD;
+  border-color: #D4A373;
 }
 
 .event-list__page-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .event-list__page-info {
-  font-size: 0.85rem;
-  color: #718096;
+  font-size: 0.82rem;
+  color: #9a7050;
+  font-family: 'JetBrains Mono', monospace;
 }
