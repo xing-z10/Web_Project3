@@ -274,6 +274,19 @@
   white-space: nowrap;
 }
 
+.compare-bar__detail {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 9999px;
+  background: #588157d4;
+  color: #fffbeb;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
 .compare-bar__clear:hover {
   color: #FEFAE0;
   background: #D4A373;

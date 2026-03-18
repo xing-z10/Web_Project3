@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { getPreference, updatePreference, deletePreference } from '../services/preferenceService';
+import { getPreference, updatePreference, deletePreference, createPreference } from '../services/preferenceService';
 import { getEventByNumericId } from '../services/eventService';
 import EventCard from '../components/events/EventCard';
 import '../styles/PreferencesPage.css';
@@ -22,6 +22,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
   const [excludeCate, setExcludeCate] = useState('');
   const [lastCity, setLastCity] = useState('');
   const [comparisonEvents, setComparisonEvents] = useState([]);
+  const comparisonsRef = useRef(null);
 
   useEffect(() => {
     async function load() {
@@ -55,6 +56,12 @@ export default function PreferencesPage({ email, onEmailChange }) {
     }
     loadComparisons();
   }, [pref]);
+
+  useEffect(() => {
+    if (window.location.hash === '#comparisons' && comparisonsRef.current) {
+      comparisonsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [comparisonEvents]);
 
   async function handleSave(e) {
     e.preventDefault();
@@ -105,16 +112,30 @@ export default function PreferencesPage({ email, onEmailChange }) {
     }
   }
 
-  function handleEmailSave() {
+  async function handleEmailSave() {
     const trimmed = newEmail.toLowerCase().trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
       setError('Please enter a valid email address.');
       return;
     }
-    localStorage.setItem('eventhub_email', trimmed);
-    onEmailChange(trimmed);
-    setEditingEmail(false);
-    setError(null);
+    try {
+      let data = await getPreference(trimmed);
+      if (!data) {
+        // New email — create a fresh preference record
+        data = await createPreference({ email: trimmed });
+      }
+      setPref(data);
+      setPreferredCate(data.preferred_cate || '');
+      setExcludeCate(data.exclude_cate || '');
+      setLastCity(data.last_city || '');
+      setComparisonEvents([]);
+      localStorage.setItem('eventhub_email', trimmed);
+      onEmailChange(trimmed);
+      setEditingEmail(false);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   if (loading) {
@@ -208,7 +229,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
       </div>
 
       {comparisonEvents.length > 0 && (
-        <div className="preferences-page__favorites">
+        <div id="comparisons" ref={comparisonsRef} className="preferences-page__favorites">
           <h2 className="preferences-page__favorites-title">Saved Comparisons</h2>
           <div className="preferences-page__favorites-grid">
             {comparisonEvents.map(event => (
