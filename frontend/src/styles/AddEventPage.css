@@ -9,12 +9,12 @@
 /* ── Title ─────────────────────────────────────────── */
 .add-event-page__title {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: #1a1a1a;
-  margin: 0 0 12px;
-  line-height: 1.1;
+  margin: 0 0 10px;
+  line-height: 1.5;
 }
 
 .add-event-page__title-accent {
@@ -172,7 +172,7 @@
   padding: 12px 40px;
   border: none;
   border-radius: 9999px;
-  background: #5A5A40;
+  background: #588157d4;
   color: #FFFBEB;
   font-size: 0.9rem;
   font-weight: 600;
