@@ -2,6 +2,8 @@
 
 A unified, no-login web application that aggregates public events into a single searchable, filterable interface. Discover concerts, festivals, tech meetups, exhibitions, and more — all in one place.
 
+**Class Link** [Course Detail](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)
+
 ---
 
 ## Prerequisites
@@ -71,6 +73,7 @@ Web_Project3/
         │   ├── DiscoverPage.jsx
         │   ├── AddEventPage.jsx
         │   └── PreferencesPage.jsx
+        │   └── DiscoverTonight.jsx
         ├── components/
         │   ├── shared/navbar.js
         │   └── events/        # EventCard, EventList, EventMap, FilterBar, SearchBar
@@ -104,4 +107,4 @@ Web_Project3/
 | Member | Scope |
 |--------|-------|
 | Danyan Gu | Events data layer, Discover page (list + map view), Add Event form |
-| Xing Zhou | Preferences data layer, Discover Tonight, comparison tool, favorites |
+| Xing Zhou | Preferences data layer, Discover Tonight, comparison tool|
