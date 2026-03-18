@@ -104,7 +104,7 @@ export default function DiscoverTonightPage({ email }) {
               onClick={handleDiscover}
               disabled={loading}
             >
-              Try Another 3
+              Try Another
             </button>
           </div>
         </>
