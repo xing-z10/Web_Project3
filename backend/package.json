@@ -3,5 +3,11 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "mongodb": "^7.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.js\""
   }
 }

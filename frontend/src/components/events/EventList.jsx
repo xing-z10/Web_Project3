@@ -1,13 +1,39 @@
+import PropTypes from 'prop-types';
 import EventCard from './EventCard';
 import '../../styles/EventList.css';
 
-export default function EventList({ events, loading, total, filters, onSetFilter, compareIds, onToggleCompare }) {
+EventList.propTypes = {
+  events: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  total: PropTypes.number.isRequired,
+  filters: PropTypes.shape({
+    limit: PropTypes.number,
+    page: PropTypes.number,
+  }).isRequired,
+  onSetFilter: PropTypes.func.isRequired,
+  compareIds: PropTypes.arrayOf(PropTypes.string),
+  onToggleCompare: PropTypes.func,
+};
+
+export default function EventList({
+  events,
+  loading,
+  total,
+  filters,
+  onSetFilter,
+  compareIds,
+  onToggleCompare,
+}) {
   if (loading) {
     return <div className="event-list__status">Loading events...</div>;
   }
 
   if (!events.length) {
-    return <div className="event-list__status event-list__empty">No events found. Try adjusting your filters.</div>;
+    return (
+      <div className="event-list__status event-list__empty">
+        No events found. Try adjusting your filters.
+      </div>
+    );
   }
 
   const totalPages = Math.ceil(total / (filters.limit || 20));
@@ -18,11 +44,13 @@ export default function EventList({ events, loading, total, filters, onSetFilter
       <div className="event-list__header">
         <h2 className="event-list__heading">
           Featured Events
-          <span className="event-list__count">{total} result{total !== 1 ? 's' : ''}</span>
+          <span className="event-list__count">
+            {total} result{total !== 1 ? 's' : ''}
+          </span>
         </h2>
       </div>
       <div className="event-list__grid">
-        {events.map(event => (
+        {events.map((event) => (
           <EventCard
             key={event._id}
             event={event}
