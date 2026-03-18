@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const path = require('path');
 require('dotenv').config();
 
 const eventRoutes = require('./routes/event');
@@ -7,9 +8,9 @@ const preferenceRoutes = require('./routes/preference');
 
 const app = express();
 
-// Manual CORS headers (no cors library)
+// Manual CORS headers
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.sendStatus(200);
@@ -28,6 +29,12 @@ async function start() {
 
   app.use('/api/events', eventRoutes(db));
   app.use('/api/preferences', preferenceRoutes(db));
+
+  // Serve React frontend
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  });
 
   app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 }

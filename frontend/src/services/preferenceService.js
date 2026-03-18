@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5001/api';
+const BASE_URL = '/api';
 
 // GET preference by email
 export async function getPreference(email) {
