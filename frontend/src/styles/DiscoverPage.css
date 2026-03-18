@@ -11,6 +11,42 @@
   margin-bottom: 28px;
 }
 
+.discover-hero__heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.discover-tonight-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 48px;
+  height: 102px;
+  border-radius: 50px;
+  background: #588157d4;
+  color: #FEFAE0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+}
+
+.discover-tonight-btn i {
+  margin-right: 32px;
+}
+
+.discover-tonight-btn:hover {
+  background: #588157;
+  color: #FEFAE0;
+  box-shadow: 0 0 5px 5px rgba(163, 177, 138, 0.312);
+}
+
 .discover-hero__heading {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.4rem, 6vw, 4.5rem);

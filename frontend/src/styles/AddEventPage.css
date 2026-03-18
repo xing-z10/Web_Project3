@@ -1,96 +1,119 @@
+/* AddEventPage.css — design: warm editorial palette */
+
 .add-event-page {
-  max-width: 720px;
-  margin: 32px auto;
-  padding: 0 20px 60px;
+  padding: 64px 24px 80px;
+  max-width: 768px;
+  margin: 0 auto;
 }
 
-.add-event-page__card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 32px;
-}
-
+/* ── Title ─────────────────────────────────────────── */
 .add-event-page__title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 6px;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.add-event-page__title-accent {
+  font-style: italic;
+  color: #C2936D;
 }
 
 .add-event-page__subtitle {
-  font-size: 0.88rem;
-  color: #718096;
-  margin-bottom: 28px;
+  font-size: 0.95rem;
+  color: rgba(26, 26, 26, 0.55);
+  margin: 0 0 48px;
 }
 
+/* ── Alert ─────────────────────────────────────────── */
 .add-event__alert {
   background: #fff5f5;
   border: 1px solid #fed7d7;
   color: #e53e3e;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 24px;
   font-size: 0.88rem;
 }
 
+/* ── Section labels ────────────────────────────────── */
 .add-event__section-label {
-  font-size: 0.72rem;
+  font-size: 0.625rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: #a0aec0;
-  margin: 22px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #f0f0f0;
+  letter-spacing: 0.2em;
+  color: rgba(26, 26, 26, 0.3);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.05);
 }
 
+/* ── Fields ────────────────────────────────────────── */
 .add-event__field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   flex: 1;
 }
 
 .add-event__field label {
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #4a5568;
+  color: rgba(26, 26, 26, 0.6);
+  letter-spacing: 0.01em;
+  margin-bottom: 1px;
 }
 
 .add-event__field input,
 .add-event__field select,
 .add-event__field textarea {
-  padding: 8px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 7px;
+  padding: 12px 16px;
+  background: #fffbeb5b;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 12px;
   font-size: 0.9rem;
-  color: #1a1a2e;
-  outline: none;
+  color: #1a1a1a;
   font-family: inherit;
-  transition: border-color 0.15s;
-  background: #fff;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  margin-bottom: 5px;
 }
 
 .add-event__field input:focus,
 .add-event__field select:focus,
 .add-event__field textarea:focus {
-  border-color: #4f6ef7;
-  box-shadow: 0 0 0 3px #4f6ef720;
+  border-color: #C2936D;
+  box-shadow: 0 0 0 3px rgba(194, 147, 109, 0.15);
 }
 
-.add-event__field textarea { resize: vertical; }
+.add-event__field textarea {
+  resize: none;
+}
+
+.add-event__field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1a1a' stroke-opacity='0.4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
 
 .add-event__error {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: #e53e3e;
 }
 
-.req { color: #e53e3e; }
+.req {
+  color: #e53e3e;
+}
 
+/* ── Rows ──────────────────────────────────────────── */
 .add-event__row {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 4px;
 }
 
@@ -98,58 +121,84 @@
   align-items: center;
 }
 
+/* ── Free toggle ───────────────────────────────────── */
 .add-event__toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
+  gap: 10px;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #4a5568;
+  color: rgba(26, 26, 26, 0.6);
   cursor: pointer;
   white-space: nowrap;
 }
 
 .add-event__toggle input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
-  accent-color: #4f6ef7;
+  accent-color: #5A5A40;
+  border-radius: 4px;
 }
 
+/* ── Actions ───────────────────────────────────────── */
 .add-event__actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 1px solid #f0f0f0;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26, 26, 26, 0.05);
 }
 
 .add-event__cancel {
-  padding: 9px 20px;
-  border: 1px solid #e2e8f0;
-  border-radius: 7px;
-  background: #fff;
-  color: #718096;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.12s;
-}
-
-.add-event__cancel:hover { background: #f7f8fc; }
-
-.add-event__submit {
-  padding: 9px 24px;
+  padding: 12px 32px;
   border: none;
-  border-radius: 7px;
-  background: #4f6ef7;
-  color: #fff;
+  background: none;
+  color: rgba(26, 26, 26, 0.55);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.12s, opacity 0.12s;
+  transition: color 0.15s;
+  font-family: inherit;
 }
 
-.add-event__submit:hover { background: #3a5be0; }
-.add-event__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.add-event__cancel:hover {
+  color: #1a1a1a;
+}
+
+.add-event__submit {
+  padding: 12px 40px;
+  border: none;
+  border-radius: 9999px;
+  background: #5A5A40;
+  color: #FFFBEB;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(90, 90, 64, 0.25);
+  transition: background 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+
+.add-event__submit:hover {
+  background: #4a4a34;
+  box-shadow: 0 6px 20px rgba(90, 90, 64, 0.35);
+}
+
+.add-event__submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .add-event__row {
+    flex-direction: column;
+  }
+
+  .add-event-page__title {
+    font-size: 2.25rem;
+  }
+}
