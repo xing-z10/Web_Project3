@@ -23,7 +23,6 @@ export default function PreferencesPage({ email, onEmailChange }) {
   const [lastCity, setLastCity] = useState('');
   const [comparisonEvents, setComparisonEvents] = useState([]);
 
-  // Load preference
   useEffect(() => {
     async function load() {
       try {
@@ -43,7 +42,6 @@ export default function PreferencesPage({ email, onEmailChange }) {
     load();
   }, [email]);
 
-  // Load comparison events from DB numeric ids
   useEffect(() => {
     async function loadComparisons() {
       const ids = [pref?.comparison_1, pref?.comparison_2, pref?.comparison_3].filter(Boolean);
@@ -93,6 +91,20 @@ export default function PreferencesPage({ email, onEmailChange }) {
     }
   }
 
+  async function handleRemoveComparison(eventNumericId) {
+    const fields = ['comparison_1', 'comparison_2', 'comparison_3'];
+    const update = {};
+    fields.forEach(f => {
+      if (pref[f] === eventNumericId) update[f] = null;
+    });
+    try {
+      const updated = await updatePreference(email, update);
+      setPref(updated);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   function handleEmailSave() {
     const trimmed = newEmail.toLowerCase().trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
@@ -128,7 +140,6 @@ export default function PreferencesPage({ email, onEmailChange }) {
 
       <div className="preferences-page__content">
         <div className="preferences-page__card">
-
           <div className="preferences-page__email-row">
             <span className="preferences-page__email-label">Signed in as</span>
             {editingEmail ? (
@@ -201,7 +212,16 @@ export default function PreferencesPage({ email, onEmailChange }) {
           <h2 className="preferences-page__favorites-title">Saved Comparisons</h2>
           <div className="preferences-page__favorites-grid">
             {comparisonEvents.map(event => (
-              <EventCard key={event._id} event={event} />
+              <div key={event._id} className="preferences-page__comparison-item">
+                <EventCard event={event} />
+                <button
+                  type="button"
+                  className="preferences-page__remove-btn"
+                  onClick={() => handleRemoveComparison(event.id)}
+                >
+                  Remove
+                </button>
+              </div>
             ))}
           </div>
         </div>
