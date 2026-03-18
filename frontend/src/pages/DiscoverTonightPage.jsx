@@ -84,7 +84,7 @@ export default function DiscoverTonightPage({ email }) {
             onClick={handleDiscover}
             disabled={loading}
           >
-            {loading ? 'Finding events...' : '🎲 Surprise Me'}
+            {loading ? 'Finding events...' : 'Surprise Me'}
           </button>
         </div>
       </section>
