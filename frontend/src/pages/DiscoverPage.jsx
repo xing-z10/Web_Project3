@@ -29,9 +29,14 @@ export default function DiscoverPage() {
     <div className="discover-page">
       <section className="discover-hero">
         <div className="discover-hero__text">
-          <h1 className="discover-hero__heading">
-            Discover your <em className="discover-hero__accent">city's pulse.</em>
-          </h1>
+          <div className="discover-hero__heading-row">
+            <h1 className="discover-hero__heading">
+              Discover your <em className="discover-hero__accent">city's pulse.</em>
+            </h1>
+            <Link to="/discover-tonight" className="discover-tonight-btn">
+              <i className="fa-solid fa-moon"></i> Discover Tonight
+            </Link>
+          </div>
           <p className="discover-hero__sub">
             A unified view of concerts, festivals, and niche happenings. No logins, just exploration.
           </p>

@@ -15,7 +15,12 @@ export default function EventList({ events, loading, total, filters, onSetFilter
 
   return (
     <div className="event-list">
-      <p className="event-list__count">{total} event{total !== 1 ? 's' : ''} found</p>
+      <div className="event-list__header">
+        <h2 className="event-list__heading">
+          Featured Events
+          <span className="event-list__count">{total} result{total !== 1 ? 's' : ''}</span>
+        </h2>
+      </div>
       <div className="event-list__grid">
         {events.map(event => (
           <EventCard

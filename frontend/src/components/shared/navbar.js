@@ -4,7 +4,7 @@ import '../../styles/navbar.css';
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <NavLink to="/" className="navbar__brand">EventHub</NavLink>
+      <NavLink to="/" className="navbar__brand"><i className="fa-solid fa-calendar-days"></i> EventHub</NavLink>
       <div className="navbar__links">
         <NavLink to="/" className={({ isActive }) => isActive ? 'navbar__link active' : 'navbar__link'} end>
           Discover
