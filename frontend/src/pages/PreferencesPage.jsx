@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   getPreference,
@@ -34,6 +35,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
   const [lastCity, setLastCity] = useState('');
   const [comparisonEvents, setComparisonEvents] = useState([]);
   const comparisonsRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     async function load() {
@@ -72,10 +74,10 @@ export default function PreferencesPage({ email, onEmailChange }) {
   }, [pref]);
 
   useEffect(() => {
-    if (window.location.hash === '#comparisons' && comparisonsRef.current) {
+    if (location.hash === '#comparisons' && comparisonsRef.current) {
       comparisonsRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [comparisonEvents]);
+  }, [comparisonEvents, location.hash]);
 
   async function handleSave(e) {
     e.preventDefault();

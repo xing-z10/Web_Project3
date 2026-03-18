@@ -34,9 +34,8 @@ module.exports = (db) => {
       const pref = await col.findOneAndUpdate(
         { email: req.params.email.toLowerCase() },
         { $set: update },
-        { returnDocument: 'after' }
+        { returnDocument: 'after', upsert: true }
       );
-      if (!pref) return res.status(404).json({ error: 'Preference not found' });
       res.json(pref);
     } catch (err) {
       res.status(400).json({ error: err.message });
@@ -50,9 +49,8 @@ module.exports = (db) => {
       const pref = await col.findOneAndUpdate(
         { email: req.params.email.toLowerCase() },
         { $set: { comparison_1, comparison_2, comparison_3 } },
-        { returnDocument: 'after' }
+        { returnDocument: 'after', upsert: true }
       );
-      if (!pref) return res.status(404).json({ error: 'Preference not found' });
       res.json(pref);
     } catch (err) {
       res.status(400).json({ error: err.message });
