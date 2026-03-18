@@ -1,5 +1,4 @@
 const express = require('express');
-const { ObjectId } = require('mongodb');
 
 module.exports = (db) => {
   const router = express.Router();
@@ -31,7 +30,7 @@ module.exports = (db) => {
   // PUT /api/preferences/:email
   router.put('/:email', async (req, res) => {
     try {
-      const { _id, ...update } = req.body;
+      const { _id: _omit, ...update } = req.body; // eslint-disable-line no-unused-vars
       const pref = await col.findOneAndUpdate(
         { email: req.params.email.toLowerCase() },
         { $set: update },
