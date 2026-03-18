@@ -2,9 +2,8 @@ const express = require('express');
 
 module.exports = (db) => {
   const router = express.Router();
-  const col = db.collection('event'); // collection is named 'event' not 'events'
+  const col = db.collection('event');
 
-  // Transform flat DB document to nested API shape expected by frontend
   function toApiDoc(doc) {
     if (!doc) return null;
     const { location_city, location_venue, source, price, ...rest } = doc;
@@ -17,9 +16,52 @@ module.exports = (db) => {
       isFree: price === 0,
       price: price || 0,
       sourceUrl: source || '',
-      sourcePlatform: '', // not stored in DB; left empty
+      sourcePlatform: '',
     };
   }
+
+  // GET /api/events/today
+  // Frontend sends today's dateFrom and dateTo, backend matches against DB
+  router.get('/today', async (req, res) => {
+    try {
+      const { city, category, dateFrom, dateTo } = req.query;
+      const filter = {};
+
+      if (dateFrom && dateTo) {
+        filter.date = { $gte: new Date(dateFrom), $lt: new Date(dateTo) };
+      }
+      if (city) filter.location_city = { $regex: city, $options: 'i' };
+      if (category) filter.category = { $regex: category, $options: 'i' };
+
+      let results = await col.aggregate([
+        { $match: filter },
+        { $sample: { size: 3 } },
+      ]).toArray();
+
+      // Fallback 1: drop city filter
+      if (results.length === 0 && city) {
+        delete filter.location_city;
+        results = await col.aggregate([
+          { $match: filter },
+          { $sample: { size: 3 } },
+        ]).toArray();
+      }
+
+      // Fallback 2: drop category filter
+      if (results.length === 0 && category) {
+        delete filter.category;
+        results = await col.aggregate([
+          { $match: filter },
+          { $sample: { size: 3 } },
+        ]).toArray();
+      }
+
+      if (results.length === 0) return res.status(404).json({ error: 'No events found for today' });
+      res.json(results.map(toApiDoc));
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
 
   // GET /api/events — list with optional filters + pagination
   router.get('/', async (req, res) => {
@@ -31,7 +73,6 @@ module.exports = (db) => {
 
       const filter = {};
 
-      // DB uses flat field names
       if (city) filter['location_city'] = { $regex: city, $options: 'i' };
       if (category) filter.category = { $regex: category, $options: 'i' };
       if (isFree !== undefined && isFree !== '') {
@@ -55,7 +96,6 @@ module.exports = (db) => {
         ];
       }
 
-      // Random single event (Discover Tonight)
       if (random === 'true') {
         const results = await col.aggregate([
           { $match: filter },
@@ -76,7 +116,7 @@ module.exports = (db) => {
     }
   });
 
-  // GET /api/events/:id — single event (_id stored as string, not ObjectId)
+  // GET /api/events/:id
   router.get('/:id', async (req, res) => {
     try {
       const event = await col.findOne({ _id: req.params.id });
@@ -87,7 +127,7 @@ module.exports = (db) => {
     }
   });
 
-  // POST /api/events — create event
+  // POST /api/events
   router.post('/', async (req, res) => {
     try {
       const { title, date, category, location, sourceUrl } = req.body;
@@ -118,7 +158,7 @@ module.exports = (db) => {
     }
   });
 
-  // PUT /api/events/:id — update event
+  // PUT /api/events/:id
   router.put('/:id', async (req, res) => {
     try {
       const update = {};
@@ -154,7 +194,7 @@ module.exports = (db) => {
     }
   });
 
-  // POST /api/events/:id/view — increment view counter
+  // POST /api/events/:id/view
   router.post('/:id/view', async (req, res) => {
     try {
       const event = await col.findOneAndUpdate(

@@ -1,19 +1,32 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/shared/navbar';
+import EmailPrompt from './components/preferences/EmailPrompt';
 import DiscoverPage from './pages/DiscoverPage';
 import AddEventPage from './pages/AddEventPage';
 import PreferencesPage from './pages/PreferencesPage';
 import DiscoverTonightPage from './pages/DiscoverTonightPage';
 
 export default function App() {
+  const [email, setEmail] = useState(() => localStorage.getItem('eventhub_email') || '');
+
+  function handleEmailSubmit(submittedEmail) {
+    localStorage.setItem('eventhub_email', submittedEmail);
+    setEmail(submittedEmail);
+  }
+
+  if (!email) {
+    return <EmailPrompt onEmailSubmit={handleEmailSubmit} />;
+  }
+
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<DiscoverPage />} />
         <Route path="/add" element={<AddEventPage />} />
-        <Route path="/preferences" element={<PreferencesPage />} />
-        <Route path="/discover-tonight" element={<DiscoverTonightPage />} />
+        <Route path="/preferences" element={<PreferencesPage email={email} />} />
+        <Route path="/discover-tonight" element={<DiscoverTonightPage email={email} />} />
       </Routes>
     </BrowserRouter>
   );

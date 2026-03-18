@@ -13,6 +13,18 @@ export async function getEvents(filters = {}) {
   return res.json();
 }
 
+// GET /api/events/today — 3 random events matching today's date
+export async function getTodayEvents(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '') query.append(k, v);
+  });
+  const res = await fetch(`${BASE_URL}/events/today?${query.toString()}`);
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error('Failed to fetch today events');
+  return res.json();
+}
+
 // GET /api/events/:id
 export async function getEventById(id) {
   const res = await fetch(`${BASE_URL}/events/${id}`);
