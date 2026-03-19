@@ -9,6 +9,20 @@
 
 ---
 
+## Description:
+Currently, public events—concerts, festivals, tech meetups, museum exhibitions, farmers markets—are fragmented across dozens of platforms: Eventbrite, Meetup, Facebook Events, university calendars, venue websites, and local city listings. Event seekers must manually check multiple sources, leading to missed opportunities and discovery fatigue.
+To create a unified, no-login web application that aggregates public events from disparate platforms into a single searchable, filterable interface. It will allow anyone to discover what's happening in their city without platform-hopping, while enabling community contributors to manually add or import events from niche sources. Events are sourced through a curated mock dataset and community contributions via manual submission forms. (To support personalization without requiring account creation, users may optionally enter their email as an identifier to save preferences and favorites across sessions.)
+The platform features an interactive map view, a randomized "Discover Tonight" recommendation engine, and a side-by-side event comparison tool—designed to transform passive browsing into active city exploration. The system prioritizes comprehensive coverage and powerful discovery over social features or persistent user identity.
+
+---
+
+## Objectives
+
+EventHub is a unified event discovery platform that aggregates public events from multiple sources into a single, searchable interface. The goal is to eliminate "discovery fatigue" — the frustration of checking Eventbrite, Meetup, Facebook Events, and dozens of other platforms just to find something happening nearby.
+The app allows anyone to browse, search, and filter 1,000+ events by city, category, price, and date — no account required. Users can optionally provide an email to save personalized preferences, comparison selections, and a default city across sessions. Key features include a list and interactive map view, a Discover Tonight page that surfaces today's events based on saved preferences, a side-by-side event comparison tool, and a community submission form for adding niche events not listed on major platforms.
+
+---
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) v18+
@@ -29,11 +43,7 @@
 <img width="976" height="623" alt="Add Event Page" src="frontend/public/images/screenshots/addEvent.jpg" />
 <img width="976" height="623" alt="Preferences Page" src="frontend/public/images/screenshots/Preference.jpg" />
 
-## Description:
-Currently, public events—concerts, festivals, tech meetups, museum exhibitions, farmers markets—are fragmented across dozens of platforms: Eventbrite, Meetup, Facebook Events, university calendars, venue websites, and local city listings. Event seekers must manually check multiple sources, leading to missed opportunities and discovery fatigue.
-To create a unified, no-login web application that aggregates public events from disparate platforms into a single searchable, filterable interface. It will allow anyone to discover what's happening in their city without platform-hopping, while enabling community contributors to manually add or import events from niche sources. Events are sourced through a curated mock dataset and community contributions via manual submission forms. (To support personalization without requiring account creation, users may optionally enter their email as an identifier to save preferences and favorites across sessions.)
-The platform features an interactive map view, a randomized "Discover Tonight" recommendation engine, and a side-by-side event comparison tool—designed to transform passive browsing into active city exploration. The system prioritizes comprehensive coverage and powerful discovery over social features or persistent user identity.
-
+---
 
 ## Project Structure
 
