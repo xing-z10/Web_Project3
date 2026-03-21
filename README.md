@@ -135,7 +135,10 @@ The app will open at `http://localhost:3000`.
 
 ## Team
 
+
 | Member | Scope |
 |--------|-------|
 | Danyan Gu | Events data layer, Discover page (list + map view), Add Event form |
 | Xing Zhou | Preferences data layer, Discover Tonight, comparison tool|
+
+
