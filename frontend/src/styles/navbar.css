@@ -48,3 +48,21 @@
   background: #d4a373;
   color: #fefae0;
 }
+
+.navbar__logout {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(90, 62, 40, 0.2);
+  background: none;
+  color: #9a7050;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navbar__logout:hover {
+  background: #faedcd;
+  color: #c0392b;
+}

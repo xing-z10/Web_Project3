@@ -1,8 +1,13 @@
 {
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-mongo": "^6.0.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "mongodb": "^7.1.0"
+    "express-session": "^1.19.0",
+    "mongodb": "^7.1.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^8.57.1",

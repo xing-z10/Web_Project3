@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import '../../styles/navbar.css';
 
-export default function Navbar() {
+export default function Navbar({ onLogout }) {
   return (
     <header className="navbar">
       <NavLink to="/" className="navbar__brand" aria-label="EventHub home">
@@ -43,8 +44,17 @@ export default function Navbar() {
               Preferences
             </NavLink>
           </li>
+          <li>
+            <button className="navbar__logout" onClick={onLogout} aria-label="Sign out">
+              Sign Out
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
   );
 }
+
+Navbar.propTypes = {
+  onLogout: PropTypes.func.isRequired,
+};
