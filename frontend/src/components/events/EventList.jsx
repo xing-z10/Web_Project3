@@ -25,14 +25,14 @@ export default function EventList({
   onToggleCompare,
 }) {
   if (loading) {
-    return <div className="event-list__status">Loading events...</div>;
+    return <p className="event-list__status" aria-live="polite">Loading events...</p>;
   }
 
   if (!events.length) {
     return (
-      <div className="event-list__status event-list__empty">
+      <p className="event-list__status event-list__empty">
         No events found. Try adjusting your filters.
-      </div>
+      </p>
     );
   }
 
@@ -40,46 +40,49 @@ export default function EventList({
   const currentPage = filters.page || 1;
 
   return (
-    <div className="event-list">
-      <div className="event-list__header">
+    <section className="event-list" aria-label="Event results">
+      <header className="event-list__header">
         <h2 className="event-list__heading">
           Featured Events
           <span className="event-list__count">
             {total} result{total !== 1 ? 's' : ''}
           </span>
         </h2>
-      </div>
-      <div className="event-list__grid">
+      </header>
+      <ul className="event-list__grid">
         {events.map((event) => (
-          <EventCard
-            key={event._id}
-            event={event}
-            selected={compareIds?.includes(event._id)}
-            onToggleCompare={onToggleCompare}
-          />
+          <li key={event._id}>
+            <EventCard
+              event={event}
+              selected={compareIds?.includes(event._id)}
+              onToggleCompare={onToggleCompare}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
       {totalPages > 1 && (
-        <div className="event-list__pagination">
+        <nav className="event-list__pagination" aria-label="Pagination">
           <button
             className="event-list__page-btn"
             disabled={currentPage <= 1}
             onClick={() => onSetFilter('page', currentPage - 1)}
+            aria-label="Previous page"
           >
             ← Prev
           </button>
-          <span className="event-list__page-info">
+          <span className="event-list__page-info" aria-live="polite">
             Page {currentPage} of {totalPages}
           </span>
           <button
             className="event-list__page-btn"
             disabled={currentPage >= totalPages}
             onClick={() => onSetFilter('page', currentPage + 1)}
+            aria-label="Next page"
           >
             Next →
           </button>
-        </div>
+        </nav>
       )}
-    </div>
+    </section>
   );
 }

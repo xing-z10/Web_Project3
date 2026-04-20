@@ -1,8 +1,20 @@
 .event-card {
   display: flex;
   flex-direction: column;
-  cursor: pointer;
+  position: relative;
   background: transparent;
+}
+
+/* Main button wrapper — resets button styles */
+.event-card__main {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
 }
 
 /* Image */
@@ -21,7 +33,7 @@
   transition: transform 0.6s ease;
 }
 
-.event-card:hover .event-card__img {
+.event-card__main:hover .event-card__img {
   transform: scale(1.06);
 }
 
@@ -66,7 +78,7 @@
   color: #fefae0;
 }
 
-/* Compare button — bottom-right corner */
+/* Compare button — bottom-right corner of img-wrap */
 .event-card__compare {
   position: absolute;
   bottom: 12px;
@@ -84,9 +96,8 @@
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
-  transition:
-    background 0.15s,
-    color 0.15s;
+  transition: background 0.15s, color 0.15s;
+  z-index: 1;
 }
 
 .event-card__compare:hover,
@@ -125,7 +136,7 @@
   transition: color 0.15s;
 }
 
-.event-card:hover .event-card__title {
+.event-card__main:hover .event-card__title {
   color: #d4a373;
 }
 
@@ -159,13 +170,20 @@
   letter-spacing: 0.03em;
 }
 
-.event-card:hover {
-  color: #d4a373;
-  letter-spacing: 0.03em;
-}
-
 /* Selected state */
 .event-card--selected .event-card__img-wrap {
+  outline: 2px solid #d4a373;
+  outline-offset: 2px;
+}
+
+/* Focus styles for keyboard navigation */
+.event-card__main:focus-visible {
+  outline: 2px solid #d4a373;
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+
+.event-card__compare:focus-visible {
   outline: 2px solid #d4a373;
   outline-offset: 2px;
 }

@@ -10,7 +10,6 @@ SearchBar.propTypes = {
 export default function SearchBar({ value, onSearch }) {
   const [input, setInput] = useState(value || '');
 
-  // Debounce: fire onSearch 300ms after user stops typing
   useEffect(() => {
     const timer = setTimeout(() => {
       onSearch(input);
@@ -19,20 +18,27 @@ export default function SearchBar({ value, onSearch }) {
   }, [input, onSearch]);
 
   return (
-    <div className="search-bar">
-      <span className="search-bar__icon">🔍</span>
+    <search className="search-bar">
+      <label htmlFor="search-input" className="sr-only">Search events</label>
+      <span className="search-bar__icon" aria-hidden="true">🔍</span>
       <input
+        id="search-input"
         className="search-bar__input"
-        type="text"
+        type="search"
         placeholder="Search by keyword, tag, or venue..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        aria-label="Search events"
       />
       {input && (
-        <button className="search-bar__clear" onClick={() => setInput('')}>
+        <button
+          className="search-bar__clear"
+          onClick={() => setInput('')}
+          aria-label="Clear search"
+        >
           ✕
         </button>
       )}
-    </div>
+    </search>
   );
 }

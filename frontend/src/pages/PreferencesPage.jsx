@@ -12,14 +12,8 @@ import EventCard from '../components/events/EventCard';
 import '../styles/PreferencesPage.css';
 
 const CATEGORIES = [
-  'Art Exhibitions',
-  'Board Games',
-  'Comic Concerts',
-  'Concerts',
-  'Livehouses',
-  'Movie Premieres',
-  'Parties',
-  'Theaters',
+  'Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts',
+  'Livehouses', 'Movie Premieres', 'Parties', 'Theaters',
 ];
 
 export default function PreferencesPage({ email, onEmailChange }) {
@@ -59,10 +53,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
   useEffect(() => {
     async function loadComparisons() {
       const ids = [pref?.comparison_1, pref?.comparison_2, pref?.comparison_3].filter(Boolean);
-      if (ids.length === 0) {
-        setComparisonEvents([]);
-        return;
-      }
+      if (ids.length === 0) { setComparisonEvents([]); return; }
       try {
         const results = await Promise.all(ids.map((id) => getEventByNumericId(id)));
         setComparisonEvents(results.filter(Boolean));
@@ -137,7 +128,6 @@ export default function PreferencesPage({ email, onEmailChange }) {
     try {
       let data = await getPreference(trimmed);
       if (!data) {
-        // New email — create a fresh preference record
         data = await createPreference({ email: trimmed });
       }
       setPref(data);
@@ -156,15 +146,15 @@ export default function PreferencesPage({ email, onEmailChange }) {
 
   if (loading) {
     return (
-      <div className="preferences-page">
+      <main className="preferences-page">
         <p className="preferences-page__loading">Loading your preferences...</p>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="preferences-page">
-      <section className="discover-hero">
+    <main className="preferences-page">
+      <section className="discover-hero" aria-label="Page header">
         <div className="discover-hero__text">
           <h1 className="discover-hero__heading">
             Your <em className="discover-hero__accent">preferences.</em>
@@ -177,31 +167,22 @@ export default function PreferencesPage({ email, onEmailChange }) {
 
       <div className="preferences-page__content">
         <div className="preferences-page__card">
+
           <div className="preferences-page__email-row">
             <span className="preferences-page__email-label">Signed in as</span>
             {editingEmail ? (
-              <div className="preferences-page__email-edit">
+              <div className="preferences-page__email-edit" role="group" aria-label="Change email">
+                <label htmlFor="new-email" className="sr-only">New email address</label>
                 <input
+                  id="new-email"
                   className="preferences-page__email-input"
                   type="email"
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="new@example.com"
                 />
-                <button
-                  type="button"
-                  className="preferences-page__email-save"
-                  onClick={handleEmailSave}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="preferences-page__email-cancel"
-                  onClick={() => setEditingEmail(false)}
-                >
-                  Cancel
-                </button>
+                <button type="button" className="preferences-page__email-save" onClick={handleEmailSave}>Save</button>
+                <button type="button" className="preferences-page__email-cancel" onClick={() => setEditingEmail(false)}>Cancel</button>
               </div>
             ) : (
               <div className="preferences-page__email-display">
@@ -209,10 +190,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
                 <button
                   type="button"
                   className="preferences-page__email-change"
-                  onClick={() => {
-                    setNewEmail(email);
-                    setEditingEmail(true);
-                  }}
+                  onClick={() => { setNewEmail(email); setEditingEmail(true); }}
                 >
                   Change
                 </button>
@@ -220,46 +198,45 @@ export default function PreferencesPage({ email, onEmailChange }) {
             )}
           </div>
 
-          {error && <div className="preferences-page__alert">{error}</div>}
-          {saved && <div className="preferences-page__success">Preferences saved!</div>}
+          {error && <p className="preferences-page__alert" role="alert">{error}</p>}
+          {saved && <p className="preferences-page__success" aria-live="polite">Preferences saved!</p>}
 
-          <form onSubmit={handleSave}>
-            <div className="preferences-page__section-label">Your City</div>
-            <div className="preferences-page__field">
-              <label>Default city for event discovery</label>
-              <input
-                type="text"
-                value={lastCity}
-                onChange={(e) => setLastCity(e.target.value)}
-                placeholder="e.g. New York"
-              />
-            </div>
+          <form onSubmit={handleSave} aria-label="Preferences form">
+            <fieldset className="preferences-page__fieldset">
+              <legend className="preferences-page__section-label">Your City</legend>
+              <div className="preferences-page__field">
+                <label htmlFor="last-city">Default city for event discovery</label>
+                <input
+                  id="last-city"
+                  type="text"
+                  value={lastCity}
+                  onChange={(e) => setLastCity(e.target.value)}
+                  placeholder="e.g. New York"
+                />
+              </div>
+            </fieldset>
 
-            <div className="preferences-page__section-label">Preferred Category</div>
-            <div className="preferences-page__field">
-              <label>Used by Discover Tonight to suggest events</label>
-              <select value={preferredCate} onChange={(e) => setPreferredCate(e.target.value)}>
-                <option value="">None</option>
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <fieldset className="preferences-page__fieldset">
+              <legend className="preferences-page__section-label">Preferred Category</legend>
+              <div className="preferences-page__field">
+                <label htmlFor="preferred-cate">Used by Discover Tonight to suggest events</label>
+                <select id="preferred-cate" value={preferredCate} onChange={(e) => setPreferredCate(e.target.value)}>
+                  <option value="">None</option>
+                  {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            </fieldset>
 
-            <div className="preferences-page__section-label">Excluded Category</div>
-            <div className="preferences-page__field">
-              <label>Hide this category from your feed</label>
-              <select value={excludeCate} onChange={(e) => setExcludeCate(e.target.value)}>
-                <option value="">None</option>
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <fieldset className="preferences-page__fieldset">
+              <legend className="preferences-page__section-label">Excluded Category</legend>
+              <div className="preferences-page__field">
+                <label htmlFor="exclude-cate">Hide this category from your feed</label>
+                <select id="exclude-cate" value={excludeCate} onChange={(e) => setExcludeCate(e.target.value)}>
+                  <option value="">None</option>
+                  {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            </fieldset>
 
             <div className="preferences-page__actions">
               <button type="button" className="preferences-page__delete-btn" onClick={handleDelete}>
@@ -274,25 +251,26 @@ export default function PreferencesPage({ email, onEmailChange }) {
       </div>
 
       {comparisonEvents.length > 0 && (
-        <div id="comparisons" ref={comparisonsRef} className="preferences-page__favorites">
+        <section id="comparisons" ref={comparisonsRef} className="preferences-page__favorites" aria-label="Saved comparisons">
           <h2 className="preferences-page__favorites-title">Saved Comparisons</h2>
-          <div className="preferences-page__favorites-grid">
+          <ul className="preferences-page__favorites-grid">
             {comparisonEvents.map((event) => (
-              <div key={event._id} className="preferences-page__comparison-item">
+              <li key={event._id} className="preferences-page__comparison-item">
                 <EventCard event={event} />
                 <button
                   type="button"
                   className="preferences-page__remove-btn"
                   onClick={() => handleRemoveComparison(event.id)}
+                  aria-label={`Remove ${event.title} from saved comparisons`}
                 >
                   Remove
                 </button>
-              </div>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
 

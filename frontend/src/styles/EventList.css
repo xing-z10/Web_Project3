@@ -38,6 +38,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 @media (max-width: 900px) {
@@ -69,9 +72,7 @@
   font-size: 0.85rem;
   cursor: pointer;
   font-weight: 500;
-  transition:
-    background 0.12s,
-    border-color 0.12s;
+  transition: background 0.12s, border-color 0.12s;
 }
 
 .event-list__page-btn:hover:not(:disabled) {

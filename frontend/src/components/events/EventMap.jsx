@@ -13,7 +13,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-// Module-level cache persists across renders and view switches
 const coordCache = {};
 
 async function geocodeCity(city) {
@@ -72,7 +71,6 @@ export default function EventMap({ events }) {
 
     const uniqueCities = [...new Set(events.map((e) => e.location?.city).filter(Boolean))];
 
-    // Immediately place events whose cities are already cached
     const cached = events
       .filter((e) => {
         const key = e.location?.city?.toLowerCase().trim();
@@ -106,66 +104,68 @@ export default function EventMap({ events }) {
             return [...prev, ...newItems];
           });
         }
-        // Nominatim rate limit: max 1 req/sec
         if (i < toFetch.length - 1) await new Promise((r) => setTimeout(r, 1100));
       }
       if (!cancelled) setLoading(false);
     })();
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [events]);
 
   if (!events.length) {
-    return <div className="event-map__empty">No events to display on map.</div>;
+    return <p className="event-map__empty">No events to display on map.</p>;
   }
 
   return (
-    <div className="event-map">
-      {loading && located.length === 0 && <div className="event-map__status">Locating events…</div>}
-      {loading && located.length > 0 && (
-        <div className="event-map__status event-map__status--overlay">Loading more locations…</div>
+    <section className="event-map" aria-label="Events map">
+      {loading && located.length === 0 && (
+        <p className="event-map__status" aria-live="polite">Locating events…</p>
       )}
-      <MapContainer center={[20, 0]} zoom={3} className="event-map__container">
+      {loading && located.length > 0 && (
+        <p className="event-map__status event-map__status--overlay" aria-live="polite">
+          Loading more locations…
+        </p>
+      )}
+      <MapContainer
+        center={[20, 0]}
+        zoom={3}
+        className="event-map__container"
+        aria-label="Interactive event map"
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {located.map(({ event, lat, lng }) => (
-          <Marker key={event._id} position={[lat, lng]}>
+          <Marker key={event._id} position={[lat, lng]} title={event.title}>
             <Popup>
-              <div className="event-map__popup">
-                <strong>{event.title}</strong>
-                <br />
-                <span>{formatDate(event.date)}</span>
-                {event.time && <span> · {event.time}</span>}
-                <br />
-                <span>{event.category}</span>
-                {event.isFree ? (
-                  <span className="event-map__free"> · Free</span>
-                ) : (
-                  event.price > 0 && <span> · ${event.price}</span>
-                )}
+              <article className="event-map__popup">
+                <h3 className="event-map__popup-title">{event.title}</h3>
+                <p className="event-map__popup-meta">
+                  {formatDate(event.date)}
+                  {event.time && ` · ${event.time}`}
+                </p>
+                <p className="event-map__popup-meta">
+                  {event.category}
+                  {event.isFree ? (
+                    <span className="event-map__free"> · Free</span>
+                  ) : (
+                    event.price > 0 && <span> · ${event.price}</span>
+                  )}
+                </p>
                 {event.location?.city && (
-                  <>
-                    <br />
-                    <span>{event.location.city}</span>
-                  </>
+                  <p className="event-map__popup-meta">{event.location.city}</p>
                 )}
                 {event.sourceUrl && (
-                  <>
-                    <br />
-                    <a href={event.sourceUrl} target="_blank" rel="noreferrer">
-                      View event →
-                    </a>
-                  </>
+                  <a href={event.sourceUrl} target="_blank" rel="noreferrer">
+                    View event →
+                  </a>
                 )}
-              </div>
+              </article>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
-    </div>
+    </section>
   );
 }

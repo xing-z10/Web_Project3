@@ -74,8 +74,8 @@ export default function DiscoverTonightPage({ email }) {
   }
 
   return (
-    <div className="discover-tonight-page">
-      <section className="discover-hero">
+    <main className="discover-tonight-page">
+      <section className="discover-hero" aria-label="Page header">
         <div className="discover-hero__text">
           <h1 className="discover-hero__heading">
             Discover <em className="discover-hero__accent">tonight.</em>
@@ -89,20 +89,26 @@ export default function DiscoverTonightPage({ email }) {
       </section>
 
       {loading && (
-        <div className="discover-tonight-page__placeholder">
-          <p>Finding events for you...</p>
-        </div>
+        <p className="discover-tonight-page__placeholder" aria-live="polite">
+          Finding events for you...
+        </p>
       )}
 
-      {!loading && error && <div className="discover-tonight-page__error">{error}</div>}
+      {!loading && error && (
+        <p className="discover-tonight-page__error" role="alert">
+          {error}
+        </p>
+      )}
 
       {!loading && events.length > 0 && (
-        <>
-          <div className="discover-tonight-page__grid">
+        <section aria-label="Today's events">
+          <ol className="discover-tonight-page__grid">
             {events.map((event) => (
-              <EventCard key={event._id} event={event} />
+              <li key={event._id}>
+                <EventCard event={event} />
+              </li>
             ))}
-          </div>
+          </ol>
           <div className="discover-tonight-page__refresh">
             <button
               className="discover-tonight-page__btn discover-tonight-page__btn--secondary"
@@ -112,9 +118,9 @@ export default function DiscoverTonightPage({ email }) {
               Try Another
             </button>
           </div>
-        </>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
 

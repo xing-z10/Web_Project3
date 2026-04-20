@@ -20,9 +20,13 @@
   letter-spacing: -0.5px;
 }
 
+/* ── Nav list reset ──────────────────────────────── */
 .navbar__links {
   display: flex;
   gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .navbar__link {
@@ -32,9 +36,7 @@
   color: #3d2b1a;
   font-size: 0.9rem;
   font-weight: 500;
-  transition:
-    background 0.15s,
-    color 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .navbar__link:hover {
