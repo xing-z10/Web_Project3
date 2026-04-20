@@ -30,7 +30,7 @@ export default function AuthPage({ onAuth }) {
     }
   }
 
-  return (
+return (
     <main className="auth-page">
       <div className="auth-page__card">
         <h1 className="auth-page__brand">EventHub</h1>
@@ -91,6 +91,7 @@ export default function AuthPage({ onAuth }) {
           <button className="auth-page__btn" type="submit" disabled={loading}>
             {loading ? '…' : mode === 'login' ? 'Sign In' : 'Create Account'}
           </button>
+
         </form>
       </div>
     </main>
