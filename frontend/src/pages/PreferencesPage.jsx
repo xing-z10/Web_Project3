@@ -7,7 +7,7 @@ import {
   deletePreference,
   createPreference,
 } from '../services/preferenceService';
-import { getEventByNumericId } from '../services/eventService';
+import { getEventById } from '../services/eventService';
 import EventCard from '../components/events/EventCard';
 import '../styles/PreferencesPage.css';
 
@@ -55,7 +55,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
       const ids = [pref?.comparison_1, pref?.comparison_2, pref?.comparison_3].filter(Boolean);
       if (ids.length === 0) { setComparisonEvents([]); return; }
       try {
-        const results = await Promise.all(ids.map((id) => getEventByNumericId(id)));
+        const results = await Promise.all(ids.map((id) => getEventById(id)));
         setComparisonEvents(results.filter(Boolean));
       } catch (err) {
         console.error('Failed to load comparison events:', err.message);
@@ -105,11 +105,11 @@ export default function PreferencesPage({ email, onEmailChange }) {
     }
   }
 
-  async function handleRemoveComparison(eventNumericId) {
+  async function handleRemoveComparison(eventId) {
     const fields = ['comparison_1', 'comparison_2', 'comparison_3'];
     const update = {};
     fields.forEach((f) => {
-      if (pref[f] === eventNumericId) update[f] = null;
+      if (pref[f] === eventId) update[f] = null;
     });
     try {
       const updated = await updatePreference(email, update);
@@ -260,7 +260,7 @@ export default function PreferencesPage({ email, onEmailChange }) {
                 <button
                   type="button"
                   className="preferences-page__remove-btn"
-                  onClick={() => handleRemoveComparison(event.id)}
+                  onClick={() => handleRemoveComparison(event._id)}
                   aria-label={`Remove ${event.title} from saved comparisons`}
                 >
                   Remove
