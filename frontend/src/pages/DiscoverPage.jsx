@@ -84,7 +84,7 @@ export default function DiscoverPage({ email }) {
     : events;
 
   const compareEvents = compareIds
-    .map((id) => events.find((e) => e._id === id) || savedEvents.find((e) => e._id === id))
+    .map((id) => sortedEvents.find((e) => e._id === id) || savedEvents.find((e) => e._id === id))
     .filter(Boolean);
 
   return (

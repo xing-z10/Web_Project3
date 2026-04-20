@@ -105,7 +105,7 @@ export default function EventCard({ event, selected, onToggleCompare }) {
           aria-pressed={selected}
           aria-label={selected ? `Remove ${event.title} from compare` : `Add ${event.title} to compare`}
         >
-          {selected ? '✓' : '+'}
+          {selected ? '✓' : 'Compare'}
         </button>
       )}
     </article>

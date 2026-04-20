@@ -78,26 +78,28 @@
   color: #fefae0;
 }
 
-/* Compare button — bottom-right corner of img-wrap */
+/* Compare button — bottom-right corner */
 .event-card__compare {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(254, 250, 224, 0.92);
-  color: #5a3e28;
-  font-size: 1rem;
-  font-weight: 600;
+  bottom: 56px;
+  right: 0;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(90, 62, 40, 0.25);
+  background: rgba(254, 250, 224, 0.95);
+  color: #9a7050;
+  font-size: 0.8rem;
+  font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
   transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
   z-index: 1;
+  font-family: inherit;
 }
 
 .event-card__compare:hover,
