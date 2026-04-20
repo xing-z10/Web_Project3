@@ -21,7 +21,8 @@
     inset 0 0 5px 4px rgba(254, 250, 224, 0.9),
     inset 0 0 20px 1px rgba(180, 140, 100, 0.35),
     10px 20px 30px rgba(180, 140, 100, 0.12),
-    inset 0 0 0 3px rgba(212, 163, 115, 0.7);
+    inset 0 0 0 3px rgba(212, 163, 115, 0.7),
+    0 0 0 3px rgba(212, 163, 115, 0.4);
 }
 
 .search-bar__icon {

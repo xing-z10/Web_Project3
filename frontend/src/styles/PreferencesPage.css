@@ -94,6 +94,7 @@
 
 .preferences-page__email-input:focus {
   border-color: #c2936d;
+  box-shadow: 0 0 0 3px rgba(194, 147, 109, 0.15);
 }
 
 .preferences-page__email-save {

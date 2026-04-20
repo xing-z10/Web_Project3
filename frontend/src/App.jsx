@@ -41,6 +41,7 @@ export default function App() {
         <Route path="/discover-tonight" element={<DiscoverTonightPage email={email} />} />
         <Route path="/events/:id" element={<EventDetailPage />} />
       </Routes>
+      <footer aria-label="Site footer" />
     </BrowserRouter>
   );
 }
