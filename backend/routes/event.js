@@ -1,4 +1,5 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 
 module.exports = (db) => {
   const router = express.Router();
@@ -32,16 +33,25 @@ module.exports = (db) => {
       if (city) filter.location_city = { $regex: city, $options: 'i' };
       if (category) filter.category = { $regex: category, $options: 'i' };
 
-      let results = await col.aggregate([{ $match: filter }, { $sample: { size: 3 } }]).toArray();
+      let results = await col.aggregate([
+        { $match: filter },
+        { $sample: { size: 3 } },
+      ]).toArray();
 
       if (results.length === 0 && city) {
         delete filter.location_city;
-        results = await col.aggregate([{ $match: filter }, { $sample: { size: 3 } }]).toArray();
+        results = await col.aggregate([
+          { $match: filter },
+          { $sample: { size: 3 } },
+        ]).toArray();
       }
 
       if (results.length === 0 && category) {
         delete filter.category;
-        results = await col.aggregate([{ $match: filter }, { $sample: { size: 3 } }]).toArray();
+        results = await col.aggregate([
+          { $match: filter },
+          { $sample: { size: 3 } },
+        ]).toArray();
       }
 
       if (results.length === 0) return res.status(404).json({ error: 'No events found for today' });
@@ -66,16 +76,8 @@ module.exports = (db) => {
   router.get('/', async (req, res) => {
     try {
       const {
-        city,
-        category,
-        isFree,
-        dateFrom,
-        dateTo,
-        tags,
-        search,
-        random,
-        page = 1,
-        limit = 20,
+        city, category, isFree, dateFrom, dateTo,
+        tags, search, random, page = 1, limit = 20,
       } = req.query;
 
       const filter = {};
@@ -86,10 +88,7 @@ module.exports = (db) => {
         filter.price = isFree === 'true' ? 0 : { $gt: 0 };
       }
       if (tags) {
-        const tagList = tags
-          .split(',')
-          .map((t) => t.trim())
-          .filter(Boolean);
+        const tagList = tags.split(',').map(t => t.trim()).filter(Boolean);
         if (tagList.length) filter.tags = { $in: tagList };
       }
       if (dateFrom || dateTo) {
@@ -107,9 +106,10 @@ module.exports = (db) => {
       }
 
       if (random === 'true') {
-        const results = await col
-          .aggregate([{ $match: filter }, { $sample: { size: 1 } }])
-          .toArray();
+        const results = await col.aggregate([
+          { $match: filter },
+          { $sample: { size: 1 } },
+        ]).toArray();
         return res.json(toApiDoc(results[0]) || null);
       }
 
@@ -119,12 +119,7 @@ module.exports = (db) => {
         col.countDocuments(filter),
       ]);
 
-      res.json({
-        events: events.map(toApiDoc),
-        total,
-        page: parseInt(page),
-        limit: parseInt(limit),
-      });
+      res.json({ events: events.map(toApiDoc), total, page: parseInt(page), limit: parseInt(limit) });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -133,7 +128,15 @@ module.exports = (db) => {
   // GET /api/events/:id
   router.get('/:id', async (req, res) => {
     try {
-      const event = await col.findOne({ _id: req.params.id });
+      let event = await col.findOne({ _id: req.params.id });
+      // Fallback: try ObjectId for newly created events
+      if (!event) {
+        try {
+          event = await col.findOne({ _id: new ObjectId(req.params.id) });
+        } catch {
+          // invalid ObjectId format, ignore
+        }
+      }
       if (!event) return res.status(404).json({ error: 'Event not found' });
       res.json(toApiDoc(event));
     } catch (err) {
@@ -146,9 +149,7 @@ module.exports = (db) => {
     try {
       const { title, date, category, location, sourceUrl } = req.body;
       if (!title || !date || !category || !location || !sourceUrl) {
-        return res
-          .status(400)
-          .json({ error: 'title, date, category, location, and sourceUrl are required' });
+        return res.status(400).json({ error: 'title, date, category, location, and sourceUrl are required' });
       }
       const doc = {
         title: req.body.title,
@@ -157,7 +158,7 @@ module.exports = (db) => {
         time: req.body.time || '',
         location_city: req.body.location?.city || '',
         location_venue: req.body.location?.address || '',
-        price: req.body.isFree ? 0 : req.body.price || 0,
+        price: req.body.isFree ? 0 : (req.body.price || 0),
         source: req.body.sourceUrl || '',
         description: req.body.description || '',
         tags: req.body.tags || [],
@@ -182,8 +183,7 @@ module.exports = (db) => {
       if (req.body.category) update.category = req.body.category;
       if (req.body.date) update.date = new Date(req.body.date);
       if (req.body.location?.city !== undefined) update.location_city = req.body.location.city;
-      if (req.body.location?.address !== undefined)
-        update.location_venue = req.body.location.address;
+      if (req.body.location?.address !== undefined) update.location_venue = req.body.location.address;
       if (req.body.price !== undefined) update.price = req.body.price;
       if (req.body.sourceUrl !== undefined) update.source = req.body.sourceUrl;
       update.updatedAt = new Date();

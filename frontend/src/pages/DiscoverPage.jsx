@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useEvents } from '../hooks/useEvents';
 import { getPreference, updatePreference } from '../services/preferenceService';
-import { getEventByNumericId } from '../services/eventService';
+import { getEventByNumericId, getEventById } from '../services/eventService';
 import FilterBar from '../components/events/FilterBar';
 import SearchBar from '../components/events/SearchBar';
 import EventList from '../components/events/EventList';
@@ -12,13 +12,24 @@ import '../styles/DiscoverPage.css';
 
 export default function DiscoverPage({ email }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const newId = new URLSearchParams(location.search).get('newId');
   const [view, setView] = useState('list');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [compareIds, setCompareIds] = useState([]);
   const [savedEvents, setSavedEvents] = useState([]);
+  const [newEvent, setNewEvent] = useState(null);
   const { events, total, loading, error, filters, setFilter, resetFilters } = useEvents();
 
   const handleSearch = useCallback((val) => setFilter('search', val), [setFilter]);
+
+  // Fetch newly added event and pin it to top
+  useEffect(() => {
+    if (!newId) return;
+    getEventById(newId).then(data => {
+      if (data) setNewEvent(data);
+    }).catch(() => {});
+  }, [newId]);
 
   useEffect(() => {
     async function loadSavedComparisons() {
@@ -66,6 +77,11 @@ export default function DiscoverPage({ email }) {
       console.error('Failed to save comparison:', err.message);
     }
   }
+
+  // Put newly added event first, avoid duplicates
+  const sortedEvents = newEvent
+    ? [newEvent, ...events.filter(e => e._id !== newEvent._id)]
+    : events;
 
   const compareEvents = compareIds
     .map((id) => events.find((e) => e._id === id) || savedEvents.find((e) => e._id === id))
@@ -128,7 +144,7 @@ export default function DiscoverPage({ email }) {
 
       {view === 'list' ? (
         <EventList
-          events={events}
+          events={sortedEvents}
           loading={loading}
           total={total}
           filters={filters}

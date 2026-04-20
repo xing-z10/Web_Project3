@@ -45,7 +45,7 @@ export default function AddEventPage() {
     setSubmitting(true);
     setSubmitError('');
     try {
-      await createEvent({
+      const newEvent = await createEvent({
         title: form.title.trim(),
         description: form.description.trim(),
         category: form.category,
@@ -59,7 +59,7 @@ export default function AddEventPage() {
         sourceUrl: form.sourceUrl.trim(),
         sourcePlatform: form.sourcePlatform,
       });
-      navigate('/');
+      navigate(`/?newId=${newEvent._id}`);
     } catch (err) {
       setSubmitError(err.message);
     } finally {
