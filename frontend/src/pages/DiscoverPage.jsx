@@ -51,7 +51,8 @@ export default function DiscoverPage({ email }) {
   }, [email]);
 
   async function handleToggleCompare(event) {
-    const next = compareIds.includes(event._id)
+    const isSelected = compareIds.includes(event._id);
+    const next = isSelected
       ? compareIds.filter((id) => id !== event._id)
       : compareIds.length >= 3
         ? compareIds
@@ -59,7 +60,14 @@ export default function DiscoverPage({ email }) {
 
     setCompareIds(next);
 
-    const allKnown = [...events, ...savedEvents];
+    // Accumulate event into savedEvents so its numeric ID stays findable
+    // even if the user later applies filters that remove it from the visible list.
+    const mergedSaved = savedEvents.some((e) => e._id === event._id)
+      ? savedEvents
+      : [...savedEvents, event];
+    setSavedEvents(mergedSaved);
+
+    const allKnown = [...sortedEvents, ...mergedSaved];
     const nextNumericIds = next
       .map((id) => {
         const e = allKnown.find((ev) => ev._id === id);

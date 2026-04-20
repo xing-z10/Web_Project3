@@ -6,6 +6,7 @@ import DiscoverPage from './pages/DiscoverPage';
 import AddEventPage from './pages/AddEventPage';
 import PreferencesPage from './pages/PreferencesPage';
 import DiscoverTonightPage from './pages/DiscoverTonightPage';
+import EventDetailPage from './pages/EventDetailPage';
 
 export default function App() {
   const [email, setEmail] = useState(() => localStorage.getItem('eventhub_email') || '');
@@ -30,6 +31,7 @@ export default function App() {
           element={<PreferencesPage email={email} onEmailChange={setEmail} />}
         />
         <Route path="/discover-tonight" element={<DiscoverTonightPage email={email} />} />
+        <Route path="/events/:id" element={<EventDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

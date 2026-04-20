@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { incrementView } from '../../services/eventService';
 import '../../styles/EventCard.css';
 
@@ -42,8 +43,9 @@ export default function EventCard({ event, selected, onToggleCompare }) {
 
   return (
     <article className={`event-card ${selected ? 'event-card--selected' : ''}`}>
-      <button
+      <Link
         className="event-card__main"
+        to={`/events/${event._id}`}
         onClick={handleCardClick}
         aria-label={`View details for ${event.title}`}
       >
@@ -95,7 +97,7 @@ export default function EventCard({ event, selected, onToggleCompare }) {
             )}
           </div>
         </div>
-      </button>
+      </Link>
 
       {onToggleCompare && (
         <button
