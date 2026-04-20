@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: eventhub
+    env: node
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
