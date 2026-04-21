@@ -55,7 +55,7 @@
 }
 
 .auth-page__tab--active {
-  background: #588157d4;
+  background: #3a5a40;
   color: #fefae0;
 }
 
@@ -112,7 +112,7 @@
 .auth-page__btn {
   margin-top: 4px;
   padding: 11px;
-  background: #588157d4;
+  background: #3a5a40;
   color: #fefae0;
   border: none;
   border-radius: 9999px;
@@ -124,7 +124,8 @@
 }
 
 .auth-page__btn:hover:not(:disabled) {
-  background: #4a5c3f;
+  background: #2d4a32;
+  box-shadow: 0 0 5px 5px rgba(163, 177, 138, 0.312);
 }
 
 .auth-page__btn:disabled {

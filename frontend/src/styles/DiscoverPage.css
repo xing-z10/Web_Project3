@@ -26,8 +26,8 @@
   padding: 0 48px;
   height: 102px;
   border-radius: 50px;
-  background: #588157d4;
-  color: #fefae0;
+  background: #3a5a40;
+  color: #ffffff;
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 500;
@@ -41,8 +41,8 @@
 }
 
 .discover-tonight-btn:hover {
-  background: #588157;
-  color: #fefae0;
+  background: #2d4a32;
+  color: #ffffff;
   box-shadow: 0 0 5px 5px rgba(163, 177, 138, 0.312);
 }
 
@@ -141,8 +141,8 @@
 
 .discover-toolbar__filter-btn:hover,
 .discover-toolbar__filter-btn.active {
-  background: #d4a373;
-  color: #fefae0;
+  background: #8b5e3c;
+  color: #ffffff;
   box-shadow:
     inset 0 0 5px 4px rgba(254, 240, 210, 0.6),
     inset 0 0 20px 1px rgba(140, 80, 30, 0.3),
@@ -213,7 +213,7 @@
   user-select: none;
   z-index: 1;
   transition: opacity 0.3s;
-  color: #7a6050;
+  color: #5a3e28;
 }
 
 .view-toggle-text--list {
