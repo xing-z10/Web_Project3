@@ -95,7 +95,7 @@ export default function DiscoverPage({ email }) {
         <div className="discover-hero__text">
           <div className="discover-hero__heading-row">
             <h1 className="discover-hero__heading">
-              Discover your <em className="discover-hero__accent">city's pulse.</em>
+              Discover your <em className="discover-hero__accent">city&apos;s pulse.</em>
             </h1>
             <Link
               to="/discover-tonight"

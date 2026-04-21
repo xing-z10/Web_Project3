@@ -34,7 +34,7 @@ export default function AuthPage({ onAuth }) {
     <main className="auth-page">
       <div className="auth-page__card">
         <h1 className="auth-page__brand">EventHub</h1>
-        <p className="auth-page__tagline">Discover your city's pulse.</p>
+        <p className="auth-page__tagline">Discover your city&apos;s pulse.</p>
 
         <div className="auth-page__tabs" role="tablist">
           <button
