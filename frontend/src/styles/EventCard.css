@@ -90,7 +90,7 @@
   border-radius: 9999px;
   border: 1px solid rgba(90, 62, 40, 0.25);
   background: rgba(254, 250, 224, 0.95);
-  color: #9a7050;
+  color: #5a3e28;
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
@@ -120,14 +120,14 @@
 .event-card__meta {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.68rem;
-  color: #9a7050;
+  color: #6b4c2e;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0;
 }
 
 .event-card__views {
-  color: #b09070;
+  color: #6b4c2e;
 }
 
 .event-card__title {
@@ -141,12 +141,12 @@
 }
 
 .event-card__main:hover .event-card__title {
-  color: #d4a373;
+  color: #a0622a;
 }
 
 .event-card__location {
   font-size: 0.8rem;
-  color: #9a7050;
+  color: #6b4c2e;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;

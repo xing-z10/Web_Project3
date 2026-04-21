@@ -28,7 +28,9 @@
   font-family: inherit;
   color: #9a7050;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .event-detail__back:hover {

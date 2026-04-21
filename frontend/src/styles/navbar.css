@@ -4,7 +4,7 @@
   justify-content: space-between;
   padding: 0 24px;
   height: 56px;
-  background: #e9edc960;
+  background: #e9edc9;
   border-bottom: none;
   position: sticky;
   top: 0;
@@ -41,20 +41,20 @@
 
 .navbar__link:hover {
   background: #faedcd;
-  color: #d4a373;
+  color: #8b5e3c;
 }
 
 .navbar__link.active {
   background: #d4a373;
-  color: #fefae0;
+  color: #3d2b1a;
 }
 
 .navbar__logout {
   padding: 6px 14px;
   border-radius: 6px;
-  border: 1px solid rgba(90, 62, 40, 0.2);
+  border: 1px solid rgba(90, 62, 40, 0.4);
   background: none;
-  color: #9a7050;
+  color: #5a3e28;
   font-size: 0.9rem;
   font-weight: 500;
   font-family: inherit;

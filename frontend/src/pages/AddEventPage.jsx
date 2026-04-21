@@ -4,15 +4,31 @@ import { createEvent } from '../services/eventService';
 import '../styles/AddEventPage.css';
 
 const CATEGORIES = [
-  'Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts',
-  'Livehouses', 'Movie Premieres', 'Parties', 'Theaters',
+  'Art Exhibitions',
+  'Board Games',
+  'Comic Concerts',
+  'Concerts',
+  'Livehouses',
+  'Movie Premieres',
+  'Parties',
+  'Theaters',
 ];
 const PLATFORMS = ['Eventbrite', 'Meetup', 'Facebook Events', 'University', 'Venue', 'Other'];
 
 const EMPTY_FORM = {
-  title: '', description: '', category: '', tags: '',
-  date: '', time: '', address: '', city: '',
-  isFree: true, price: '', imageUrl: '', sourceUrl: '', sourcePlatform: '',
+  title: '',
+  description: '',
+  category: '',
+  tags: '',
+  date: '',
+  time: '',
+  address: '',
+  city: '',
+  isFree: true,
+  price: '',
+  imageUrl: '',
+  sourceUrl: '',
+  sourcePlatform: '',
 };
 
 export default function AddEventPage() {
@@ -41,7 +57,10 @@ export default function AddEventPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
     setSubmitting(true);
     setSubmitError('');
     try {
@@ -49,7 +68,12 @@ export default function AddEventPage() {
         title: form.title.trim(),
         description: form.description.trim(),
         category: form.category,
-        tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
+        tags: form.tags
+          ? form.tags
+              .split(',')
+              .map((t) => t.trim())
+              .filter(Boolean)
+          : [],
         date: form.date,
         time: form.time,
         location: { address: form.address.trim(), city: form.city.trim() },
@@ -77,15 +101,23 @@ export default function AddEventPage() {
           Surface a niche happening that isn't listed on major platforms.
         </p>
 
-        {submitError && <p className="add-event__alert" role="alert">{submitError}</p>}
+        {submitError && (
+          <p className="add-event__alert" role="alert">
+            {submitError}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit} noValidate aria-label="Add event form">
-
           <fieldset className="add-event__fieldset">
             <legend className="add-event__section-label">Event Details</legend>
 
             <div className="add-event__field">
-              <label htmlFor="event-title">Title <span className="req" aria-hidden="true">*</span></label>
+              <label htmlFor="event-title">
+                Title{' '}
+                <span className="req" aria-hidden="true">
+                  *
+                </span>
+              </label>
               <input
                 id="event-title"
                 type="text"
@@ -95,7 +127,11 @@ export default function AddEventPage() {
                 aria-required="true"
                 aria-describedby={errors.title ? 'title-error' : undefined}
               />
-              {errors.title && <span id="title-error" className="add-event__error" role="alert">{errors.title}</span>}
+              {errors.title && (
+                <span id="title-error" className="add-event__error" role="alert">
+                  {errors.title}
+                </span>
+              )}
             </div>
 
             <div className="add-event__field">
@@ -111,7 +147,12 @@ export default function AddEventPage() {
 
             <div className="add-event__row">
               <div className="add-event__field">
-                <label htmlFor="event-category">Category <span className="req" aria-hidden="true">*</span></label>
+                <label htmlFor="event-category">
+                  Category{' '}
+                  <span className="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
                 <select
                   id="event-category"
                   value={form.category}
@@ -119,9 +160,17 @@ export default function AddEventPage() {
                   aria-required="true"
                 >
                   <option value="">Select category</option>
-                  {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                  {CATEGORIES.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
                 </select>
-                {errors.category && <span className="add-event__error" role="alert">{errors.category}</span>}
+                {errors.category && (
+                  <span className="add-event__error" role="alert">
+                    {errors.category}
+                  </span>
+                )}
               </div>
               <div className="add-event__field">
                 <label htmlFor="event-tags">Tags</label>
@@ -140,7 +189,12 @@ export default function AddEventPage() {
             <legend className="add-event__section-label">Date & Time</legend>
             <div className="add-event__row">
               <div className="add-event__field">
-                <label htmlFor="event-date">Date <span className="req" aria-hidden="true">*</span></label>
+                <label htmlFor="event-date">
+                  Date{' '}
+                  <span className="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
                 <input
                   id="event-date"
                   type="date"
@@ -148,7 +202,11 @@ export default function AddEventPage() {
                   onChange={(e) => set('date', e.target.value)}
                   aria-required="true"
                 />
-                {errors.date && <span className="add-event__error" role="alert">{errors.date}</span>}
+                {errors.date && (
+                  <span className="add-event__error" role="alert">
+                    {errors.date}
+                  </span>
+                )}
               </div>
               <div className="add-event__field">
                 <label htmlFor="event-time">Time</label>
@@ -176,7 +234,12 @@ export default function AddEventPage() {
                 />
               </div>
               <div className="add-event__field">
-                <label htmlFor="event-city">City <span className="req" aria-hidden="true">*</span></label>
+                <label htmlFor="event-city">
+                  City{' '}
+                  <span className="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
                 <input
                   id="event-city"
                   type="text"
@@ -185,7 +248,11 @@ export default function AddEventPage() {
                   placeholder="New York"
                   aria-required="true"
                 />
-                {errors.city && <span className="add-event__error" role="alert">{errors.city}</span>}
+                {errors.city && (
+                  <span className="add-event__error" role="alert">
+                    {errors.city}
+                  </span>
+                )}
               </div>
             </div>
           </fieldset>
@@ -203,7 +270,12 @@ export default function AddEventPage() {
               </label>
               {!form.isFree && (
                 <div className="add-event__field">
-                  <label htmlFor="event-price">Price ($) <span className="req" aria-hidden="true">*</span></label>
+                  <label htmlFor="event-price">
+                    Price ($){' '}
+                    <span className="req" aria-hidden="true">
+                      *
+                    </span>
+                  </label>
                   <input
                     id="event-price"
                     type="number"
@@ -213,7 +285,11 @@ export default function AddEventPage() {
                     onChange={(e) => set('price', e.target.value)}
                     placeholder="0.00"
                   />
-                  {errors.price && <span className="add-event__error" role="alert">{errors.price}</span>}
+                  {errors.price && (
+                    <span className="add-event__error" role="alert">
+                      {errors.price}
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -223,7 +299,12 @@ export default function AddEventPage() {
             <legend className="add-event__section-label">Source</legend>
             <div className="add-event__row">
               <div className="add-event__field" style={{ flex: 2 }}>
-                <label htmlFor="event-source-url">Source URL <span className="req" aria-hidden="true">*</span></label>
+                <label htmlFor="event-source-url">
+                  Source URL{' '}
+                  <span className="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
                 <input
                   id="event-source-url"
                   type="url"
@@ -232,7 +313,11 @@ export default function AddEventPage() {
                   placeholder="https://eventbrite.com/..."
                   aria-required="true"
                 />
-                {errors.sourceUrl && <span className="add-event__error" role="alert">{errors.sourceUrl}</span>}
+                {errors.sourceUrl && (
+                  <span className="add-event__error" role="alert">
+                    {errors.sourceUrl}
+                  </span>
+                )}
               </div>
               <div className="add-event__field">
                 <label htmlFor="event-platform">Platform</label>
@@ -242,7 +327,11 @@ export default function AddEventPage() {
                   onChange={(e) => set('sourcePlatform', e.target.value)}
                 >
                   <option value="">Select platform</option>
-                  {PLATFORMS.map((p) => <option key={p} value={p}>{p}</option>)}
+                  {PLATFORMS.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

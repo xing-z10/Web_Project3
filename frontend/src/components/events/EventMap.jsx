@@ -109,7 +109,9 @@ export default function EventMap({ events }) {
       if (!cancelled) setLoading(false);
     })();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [events]);
 
   if (!events.length) {
@@ -119,7 +121,9 @@ export default function EventMap({ events }) {
   return (
     <section className="event-map" aria-label="Events map">
       {loading && located.length === 0 && (
-        <p className="event-map__status" aria-live="polite">Locating events…</p>
+        <p className="event-map__status" aria-live="polite">
+          Locating events…
+        </p>
       )}
       {loading && located.length > 0 && (
         <p className="event-map__status event-map__status--overlay" aria-live="polite">

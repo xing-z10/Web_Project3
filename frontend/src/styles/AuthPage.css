@@ -13,7 +13,7 @@
   padding: 2.5rem 2rem;
   max-width: 420px;
   width: 100%;
-  box-shadow: 0 4px 32px rgba(61, 43, 26, 0.10);
+  box-shadow: 0 4px 32px rgba(61, 43, 26, 0.1);
   text-align: center;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .auth-page__tab--active {
-  background: #d4a373;
+  background: #588157d4;
   color: #fefae0;
 }
 
@@ -98,8 +98,8 @@
 }
 
 .auth-page__input:focus {
-  border-color: #d4a373;
-  box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.18);
+  border-color: #c2936d;
+  box-shadow: 0 0 0 3px rgba(194, 147, 109, 0.15);
 }
 
 .auth-page__error {
@@ -108,22 +108,23 @@
   margin: 0;
 }
 
+/* ── Primary button — consistent with Save/Submit across app ── */
 .auth-page__btn {
   margin-top: 4px;
   padding: 11px;
-  background: #d4a373;
+  background: #588157d4;
   color: #fefae0;
   border: none;
-  border-radius: 10px;
+  border-radius: 9999px;
   font-size: 0.95rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, opacity 0.15s;
 }
 
 .auth-page__btn:hover:not(:disabled) {
-  background: #c08040;
+  background: #4a5c3f;
 }
 
 .auth-page__btn:disabled {

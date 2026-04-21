@@ -26,9 +26,11 @@ export default function DiscoverPage({ email }) {
   // Fetch newly added event and pin it to top
   useEffect(() => {
     if (!newId) return;
-    getEventById(newId).then(data => {
-      if (data) setNewEvent(data);
-    }).catch(() => {});
+    getEventById(newId)
+      .then((data) => {
+        if (data) setNewEvent(data);
+      })
+      .catch(() => {});
   }, [newId]);
 
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function DiscoverPage({ email }) {
 
   // Put newly added event first, avoid duplicates
   const sortedEvents = newEvent
-    ? [newEvent, ...events.filter(e => e._id !== newEvent._id)]
+    ? [newEvent, ...events.filter((e) => e._id !== newEvent._id)]
     : events;
 
   const compareEvents = compareIds
@@ -95,7 +97,11 @@ export default function DiscoverPage({ email }) {
             <h1 className="discover-hero__heading">
               Discover your <em className="discover-hero__accent">city's pulse.</em>
             </h1>
-            <Link to="/discover-tonight" className="discover-tonight-btn" aria-label="Discover Tonight">
+            <Link
+              to="/discover-tonight"
+              className="discover-tonight-btn"
+              aria-label="Discover Tonight"
+            >
               <i className="fa-solid fa-dice" aria-hidden="true"></i>
               <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.5 }}>
                 <span>Discover</span>
@@ -104,7 +110,8 @@ export default function DiscoverPage({ email }) {
             </Link>
           </div>
           <p className="discover-hero__sub">
-            A unified view of concerts, festivals, and niche happenings. No logins, just exploration.
+            A unified view of concerts, festivals, and niche happenings. No logins, just
+            exploration.
           </p>
         </div>
       </section>
@@ -112,7 +119,9 @@ export default function DiscoverPage({ email }) {
       <div className="discover-toolbar" role="search">
         <SearchBar value={filters.search} onSearch={handleSearch} />
         <div className="discover-toolbar__city">
-          <label htmlFor="city-input" className="sr-only">City</label>
+          <label htmlFor="city-input" className="sr-only">
+            City
+          </label>
           <input
             id="city-input"
             type="text"
@@ -151,7 +160,11 @@ export default function DiscoverPage({ email }) {
         </div>
       )}
 
-      {error && <p className="discover-page__error" role="alert">Error: {error}</p>}
+      {error && (
+        <p className="discover-page__error" role="alert">
+          Error: {error}
+        </p>
+      )}
 
       {view === 'list' ? (
         <EventList

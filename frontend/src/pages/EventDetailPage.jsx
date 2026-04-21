@@ -6,7 +6,12 @@ import '../styles/EventDetailPage.css';
 function formatDate(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr);
-  return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  return d.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 export default function EventDetailPage() {
@@ -26,10 +31,22 @@ export default function EventDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <main className="event-detail"><p className="event-detail__state">Loading…</p></main>;
-  if (error)   return <main className="event-detail"><p className="event-detail__state event-detail__state--error">{error}</p></main>;
+  if (loading)
+    return (
+      <main className="event-detail">
+        <p className="event-detail__state">Loading…</p>
+      </main>
+    );
+  if (error)
+    return (
+      <main className="event-detail">
+        <p className="event-detail__state event-detail__state--error">{error}</p>
+      </main>
+    );
 
-  const imageSrc = event.imageUrl || `/images/category-defaults/${(event.category || 'default').toLowerCase().replace(/\s+/g, '-')}.jpg`;
+  const imageSrc =
+    event.imageUrl ||
+    `/images/category-defaults/${(event.category || 'default').toLowerCase().replace(/\s+/g, '-')}.jpg`;
 
   return (
     <main className="event-detail">
@@ -41,7 +58,9 @@ export default function EventDetailPage() {
         <img className="event-detail__img" src={imageSrc} alt={event.title} />
         <div className="event-detail__hero-overlay">
           {event.category && <span className="event-detail__category">{event.category}</span>}
-          <span className={`event-detail__price ${event.isFree ? 'event-detail__price--free' : ''}`}>
+          <span
+            className={`event-detail__price ${event.isFree ? 'event-detail__price--free' : ''}`}
+          >
             {event.isFree ? 'Free' : event.price > 0 ? `$${event.price}` : ''}
           </span>
         </div>
@@ -54,7 +73,10 @@ export default function EventDetailPage() {
           {event.date && (
             <>
               <dt>Date</dt>
-              <dd>{formatDate(event.date)}{event.time ? ` · ${event.time}` : ''}</dd>
+              <dd>
+                {formatDate(event.date)}
+                {event.time ? ` · ${event.time}` : ''}
+              </dd>
             </>
           )}
           {(event.location?.address || event.location?.city) && (
@@ -82,7 +104,11 @@ export default function EventDetailPage() {
           <section className="event-detail__section">
             <h2 className="event-detail__section-title">Tags</h2>
             <ul className="event-detail__tags">
-              {event.tags.map((tag) => <li key={tag} className="event-detail__tag">{tag}</li>)}
+              {event.tags.map((tag) => (
+                <li key={tag} className="event-detail__tag">
+                  {tag}
+                </li>
+              ))}
             </ul>
           </section>
         )}

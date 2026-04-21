@@ -19,8 +19,12 @@ export default function SearchBar({ value, onSearch }) {
 
   return (
     <search className="search-bar">
-      <label htmlFor="search-input" className="sr-only">Search events</label>
-      <span className="search-bar__icon" aria-hidden="true">🔍</span>
+      <label htmlFor="search-input" className="sr-only">
+        Search events
+      </label>
+      <span className="search-bar__icon" aria-hidden="true">
+        🔍
+      </span>
       <input
         id="search-input"
         className="search-bar__input"

@@ -87,7 +87,9 @@
   color: #1a1a1a;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   margin-bottom: 5px;
 }
 
@@ -188,7 +190,10 @@
   cursor: pointer;
   font-family: inherit;
   box-shadow: 0 4px 16px rgba(90, 90, 64, 0.25);
-  transition: background 0.15s, box-shadow 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s,
+    opacity 0.15s;
 }
 
 .add-event__submit:hover {

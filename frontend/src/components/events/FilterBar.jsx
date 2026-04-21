@@ -2,8 +2,14 @@ import PropTypes from 'prop-types';
 import '../../styles/FilterBar.css';
 
 const CATEGORIES = [
-  'Art Exhibitions', 'Board Games', 'Comic Concerts', 'Concerts',
-  'Livehouses', 'Movie Premieres', 'Parties', 'Theaters',
+  'Art Exhibitions',
+  'Board Games',
+  'Comic Concerts',
+  'Concerts',
+  'Livehouses',
+  'Movie Premieres',
+  'Parties',
+  'Theaters',
 ];
 const PLATFORMS = ['Eventbrite', 'Meetup', 'Facebook Events', 'University', 'Venue'];
 
@@ -24,7 +30,9 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
     <section className="filter-bar" aria-label="Event filters">
       <div className="filter-bar__row">
         <div className="filter-bar__group">
-          <label htmlFor="filter-from" className="filter-bar__label">From</label>
+          <label htmlFor="filter-from" className="filter-bar__label">
+            From
+          </label>
           <input
             id="filter-from"
             type="date"
@@ -34,7 +42,9 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
           />
         </div>
         <div className="filter-bar__group">
-          <label htmlFor="filter-to" className="filter-bar__label">To</label>
+          <label htmlFor="filter-to" className="filter-bar__label">
+            To
+          </label>
           <input
             id="filter-to"
             type="date"
@@ -44,7 +54,9 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
           />
         </div>
         <div className="filter-bar__group">
-          <label htmlFor="filter-price" className="filter-bar__label">Price</label>
+          <label htmlFor="filter-price" className="filter-bar__label">
+            Price
+          </label>
           <select
             id="filter-price"
             className="filter-bar__input"
@@ -57,7 +69,9 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
           </select>
         </div>
         <div className="filter-bar__group">
-          <label htmlFor="filter-category" className="filter-bar__label">Category</label>
+          <label htmlFor="filter-category" className="filter-bar__label">
+            Category
+          </label>
           <select
             id="filter-category"
             className="filter-bar__input"
@@ -65,11 +79,17 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
             onChange={(e) => onSetFilter('category', e.target.value)}
           >
             <option value="">All</option>
-            {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </div>
         <div className="filter-bar__group">
-          <label htmlFor="filter-platform" className="filter-bar__label">Platform</label>
+          <label htmlFor="filter-platform" className="filter-bar__label">
+            Platform
+          </label>
           <select
             id="filter-platform"
             className="filter-bar__input"
@@ -77,7 +97,11 @@ export default function FilterBar({ filters, onSetFilter, onReset }) {
             onChange={(e) => onSetFilter('platform', e.target.value)}
           >
             <option value="">All</option>
-            {PLATFORMS.map((p) => <option key={p} value={p}>{p}</option>)}
+            {PLATFORMS.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
           </select>
         </div>
         <button className="filter-bar__reset" onClick={onReset} aria-label="Clear all filters">

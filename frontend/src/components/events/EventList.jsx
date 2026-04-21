@@ -25,7 +25,11 @@ export default function EventList({
   onToggleCompare,
 }) {
   if (loading) {
-    return <p className="event-list__status" aria-live="polite">Loading events...</p>;
+    return (
+      <p className="event-list__status" aria-live="polite">
+        Loading events...
+      </p>
+    );
   }
 
   if (!events.length) {

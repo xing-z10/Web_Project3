@@ -1,7 +1,7 @@
 .event-list__status {
   text-align: center;
   padding: 48px 24px;
-  color: #9a7050;
+  color: #6b4c2e;
   font-size: 0.95rem;
 }
 
@@ -28,7 +28,7 @@
 
 .event-list__count {
   font-size: 0.82rem;
-  color: #9a7050;
+  color: #6b4c2e;
   margin-left: 10px;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 400;
@@ -87,6 +87,6 @@
 
 .event-list__page-info {
   font-size: 0.82rem;
-  color: #9a7050;
+  color: #6b4c2e;
   font-family: 'JetBrains Mono', monospace;
 }

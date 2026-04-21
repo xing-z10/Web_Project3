@@ -12,13 +12,13 @@ const PLATFORM_COLORS = {
 
 const CATEGORY_IMAGES = {
   'art exhibitions': '/images/category-defaults/art.jpg',
-  'board games':     '/images/category-defaults/community.jpg',
-  'comic concerts':  '/images/category-defaults/music.jpg',
-  concerts:          '/images/category-defaults/concert.jpg',
-  livehouses:        '/images/category-defaults/livehouse.jpg',
+  'board games': '/images/category-defaults/community.jpg',
+  'comic concerts': '/images/category-defaults/music.jpg',
+  concerts: '/images/category-defaults/concert.jpg',
+  livehouses: '/images/category-defaults/livehouse.jpg',
   'movie premieres': '/images/category-defaults/film.jpg',
-  parties:           '/images/category-defaults/parties.jpg',
-  theaters:          '/images/category-defaults/theaters.jpg',
+  parties: '/images/category-defaults/parties.jpg',
+  theaters: '/images/category-defaults/theaters.jpg',
 };
 
 function getCategoryImage(category) {
@@ -52,9 +52,7 @@ export default function EventCard({ event, selected, onToggleCompare }) {
         <div className="event-card__img-wrap">
           <img className="event-card__img" src={imageSrc} alt={event.title} />
           <div className="event-card__img-badges">
-            {event.category && (
-              <span className="event-card__category">{event.category}</span>
-            )}
+            {event.category && <span className="event-card__category">{event.category}</span>}
             {event.isFree ? (
               <span className="event-card__badge event-card__badge--free">Free</span>
             ) : (
@@ -105,7 +103,9 @@ export default function EventCard({ event, selected, onToggleCompare }) {
           onClick={() => onToggleCompare(event)}
           title={selected ? 'Remove from compare' : 'Add to compare'}
           aria-pressed={selected}
-          aria-label={selected ? `Remove ${event.title} from compare` : `Add ${event.title} to compare`}
+          aria-label={
+            selected ? `Remove ${event.title} from compare` : `Add ${event.title} to compare`
+          }
         >
           {selected ? '✓' : 'Compare'}
         </button>

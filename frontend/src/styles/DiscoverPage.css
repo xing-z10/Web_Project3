@@ -58,12 +58,12 @@
 
 .discover-hero__accent {
   font-style: italic;
-  color: #d4a373;
+  color: #a0622a;
 }
 
 .discover-hero__sub {
   font-size: 0.95rem;
-  color: #9a7050;
+  color: #6b4c2e;
   max-width: 420px;
   margin: 0;
   line-height: 1.6;
@@ -248,8 +248,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #faedcd;
-  color: #5a3e28;
+  background: #e8d9b8;
+  color: #3d2b1a;
   padding: 12px 24px;
   display: flex;
   align-items: center;
@@ -263,7 +263,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   white-space: nowrap;
-  color: #9a7050;
+  color: #3d2b1a;
 }
 
 .compare-bar__items {
@@ -271,11 +271,14 @@
   gap: 8px;
   flex: 1;
   flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .compare-bar__item {
-  background: #e9edc9;
-  border: 1px solid #ccd5ae;
+  background: #d4c4a0;
+  border: 1px solid #b8a87e;
   border-radius: 6px;
   padding: 4px 10px;
   font-size: 0.82rem;
@@ -286,13 +289,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #5a3e28;
+  color: #3d2b1a;
 }
 
 .compare-bar__remove {
   background: none;
   border: none;
-  color: #9a7050;
+  color: #5a3e28;
   cursor: pointer;
   font-size: 0.75rem;
   padding: 0;
@@ -301,30 +304,33 @@
 }
 
 .compare-bar__remove:hover {
-  color: #d4a373;
+  color: #c0392b;
 }
 
 .compare-bar__clear {
   background: none;
-  border: 1px solid #ccd5ae;
-  color: #9a7050;
+  border: 1px solid #8b6f4e;
+  color: #3d2b1a;
   padding: 5px 12px;
   border-radius: 6px;
   font-size: 0.82rem;
   cursor: pointer;
-  transition:
-    color 0.12s,
-    border-color 0.12s,
-    background 0.12s;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
   white-space: nowrap;
+}
+
+.compare-bar__clear:hover {
+  color: #fefae0;
+  background: #8b6f4e;
+  border-color: #8b6f4e;
 }
 
 .compare-bar__detail {
   padding: 6px 16px;
   border: none;
   border-radius: 9999px;
-  background: #588157d4;
-  color: #fffbeb;
+  background: #3a5a40;
+  color: #fefae0;
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
@@ -332,8 +338,6 @@
   transition: background 0.15s;
 }
 
-.compare-bar__clear:hover {
-  color: #fefae0;
-  background: #d4a373;
-  border-color: #d4a373;
+.compare-bar__detail:hover {
+  background: #2d4a32;
 }
