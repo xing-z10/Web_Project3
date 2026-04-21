@@ -25,9 +25,10 @@
   margin: 0 0 4px;
 }
 
+/* #6b4226 on #fefae0 = 8.21:1 ✓ WCAG AA */
 .auth-page__tagline {
   font-size: 0.85rem;
-  color: #9a7050;
+  color: #6b4226;
   margin: 0 0 28px;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
@@ -41,6 +42,7 @@
   margin-bottom: 24px;
 }
 
+/* #6b4226 on #fefae0 = 8.21:1 ✓ WCAG AA */
 .auth-page__tab {
   flex: 1;
   padding: 9px 0;
@@ -50,7 +52,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9a7050;
+  color: #6b4226;
   transition: background 0.15s, color 0.15s;
 }
 
@@ -76,12 +78,13 @@
   gap: 5px;
 }
 
+/* #5a3520 on #ffffff = 10.69:1 ✓ WCAG AA */
 .auth-page__label {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #9a7050;
+  color: #5a3520;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
