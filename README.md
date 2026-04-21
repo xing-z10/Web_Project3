@@ -38,10 +38,10 @@ The app allows anyone to browse, search, and filter 1,000+ events by city, categ
 ---
 
 ## Screenshot
-<img width="976" height="623" alt="Discover Page" src="frontend/public/images/screenshots/discover.jpg" />
-<img width="976" height="623" alt="Discover Tonight Page" src="frontend/public/images/screenshots/tonight.jpg" />
-<img width="976" height="623" alt="Add Event Page" src="frontend/public/images/screenshots/addEvent.jpg" />
-<img width="976" height="623" alt="Preferences Page" src="frontend/public/images/screenshots/Preference.jpg" />
+<img width="2554" height="1528" alt="image" src="https://github.com/user-attachments/assets/d262909b-6892-4d9b-8b2d-55982dc97e85" />
+<img width="2552" height="1532" alt="image" src="https://github.com/user-attachments/assets/e81a3788-89b4-4244-a65e-a9b06d499c8e" />
+<img width="2552" height="1530" alt="image" src="https://github.com/user-attachments/assets/f8258dae-5ff7-411f-a2dd-8a36ac4adf79" />
+<img width="2548" height="1530" alt="image" src="https://github.com/user-attachments/assets/637db249-1832-44d7-a0d7-c5964d2815d4" />
 
 ---
 
