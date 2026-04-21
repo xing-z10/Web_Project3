@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useEvents } from '../hooks/useEvents';
 import { getPreference, updatePreference } from '../services/preferenceService';
-import { getEventById } from '../services/eventService';
+import { getEventByNumericId, getEventById } from '../services/eventService';
 import FilterBar from '../components/events/FilterBar';
 import SearchBar from '../components/events/SearchBar';
 import EventList from '../components/events/EventList';
@@ -39,7 +39,7 @@ export default function DiscoverPage({ email }) {
         if (!pref) return;
         const ids = [pref.comparison_1, pref.comparison_2, pref.comparison_3].filter(Boolean);
         if (ids.length === 0) return;
-        const results = await Promise.all(ids.map((id) => getEventById(id)));
+        const results = await Promise.all(ids.map((id) => getEventByNumericId(id)));
         const valid = results.filter(Boolean);
         setSavedEvents(valid);
         setCompareIds(valid.map((e) => e._id));
@@ -51,8 +51,7 @@ export default function DiscoverPage({ email }) {
   }, [email]);
 
   async function handleToggleCompare(event) {
-    const isSelected = compareIds.includes(event._id);
-    const next = isSelected
+    const next = compareIds.includes(event._id)
       ? compareIds.filter((id) => id !== event._id)
       : compareIds.length >= 3
         ? compareIds
@@ -60,16 +59,19 @@ export default function DiscoverPage({ email }) {
 
     setCompareIds(next);
 
-    const mergedSaved = savedEvents.some((e) => e._id === event._id)
-      ? savedEvents
-      : [...savedEvents, event];
-    setSavedEvents(mergedSaved);
+    const allKnown = [...events, ...savedEvents];
+    const nextNumericIds = next
+      .map((id) => {
+        const e = allKnown.find((ev) => ev._id === id);
+        return e?.id || null;
+      })
+      .filter(Boolean);
 
     try {
       await updatePreference(email, {
-        comparison_1: next[0] || null,
-        comparison_2: next[1] || null,
-        comparison_3: next[2] || null,
+        comparison_1: nextNumericIds[0] || null,
+        comparison_2: nextNumericIds[1] || null,
+        comparison_3: nextNumericIds[2] || null,
       });
     } catch (err) {
       console.error('Failed to save comparison:', err.message);
@@ -102,13 +104,24 @@ export default function DiscoverPage({ email }) {
             </Link>
           </div>
           <p className="discover-hero__sub">
-            A unified view of concerts, festivals, and niche happenings. Just exploration.
+            A unified view of concerts, festivals, and niche happenings. No logins, just exploration.
           </p>
         </div>
       </section>
 
       <div className="discover-toolbar" role="search">
         <SearchBar value={filters.search} onSearch={handleSearch} />
+        <div className="discover-toolbar__city">
+          <label htmlFor="city-input" className="sr-only">City</label>
+          <input
+            id="city-input"
+            type="text"
+            className="discover-toolbar__city-input"
+            placeholder="City..."
+            value={filters.city || ''}
+            onChange={(e) => setFilter('city', e.target.value)}
+          />
+        </div>
         <button
           className={`discover-toolbar__filter-btn ${filtersOpen ? 'active' : ''}`}
           onClick={() => setFiltersOpen((o) => !o)}
