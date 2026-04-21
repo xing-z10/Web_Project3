@@ -6,6 +6,7 @@
 **Class Link** [Course Detail](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)\
 **Google Slides** [Slides](https://docs.google.com/presentation/d/1CL2inyHW98prUFMSg3S5qdhAforoC7HxkRlC5PD1B90/edit?usp=sharing)\
 **YouTube Link** [Video](https://youtu.be/uv8QpCSAQTU)
+**Usability Study Report** [Report1](https://docs.google.com/document/d/1FanxdaBIndjh58f6GiFP7D0LB8gmam08HAiZ6zQ8yKs/edit?usp=sharing)
 
 ---
 
