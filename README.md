@@ -1,6 +1,7 @@
 # EventHub
----
+
 ## Author: Xing Zhou, Danyan Gu
+
 ---
 **Live Demo** [https://eventhub-t9pe.onrender.com](https://eventhub-t9pe.onrender.com)\
 **Class Link** [Course Detail](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)\
