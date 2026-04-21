@@ -110,8 +110,7 @@ export default function DiscoverPage({ email }) {
             </Link>
           </div>
           <p className="discover-hero__sub">
-            A unified view of concerts, festivals, and niche happenings. No logins, just
-            exploration.
+            A unified view of concerts, festivals, and niche happenings. 
           </p>
         </div>
       </section>
