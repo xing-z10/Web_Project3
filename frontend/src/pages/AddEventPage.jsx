@@ -98,7 +98,7 @@ export default function AddEventPage() {
           Add an <span className="add-event-page__title-accent">Event</span>
         </h1>
         <p className="add-event-page__subtitle">
-          Surface a niche happening that isn't listed on major platforms.
+          Surface a niche happening that isn&apos;t listed on major platforms.
         </p>
 
         {submitError && (
