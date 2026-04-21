@@ -5,21 +5,30 @@
 **Live Demo** [https://eventhub-t9pe.onrender.com](https://eventhub-t9pe.onrender.com)\
 **Class Link** [Course Detail](https://johnguerra.co/classes/webDevelopment_online_spring_2026/)\
 **Google Slides** [Slides](https://docs.google.com/presentation/d/1CL2inyHW98prUFMSg3S5qdhAforoC7HxkRlC5PD1B90/edit?usp=sharing)\
-**YouTube Link** [Video](https://youtu.be/uv8QpCSAQTU)
-
+**YouTube Link** [Video](https://youtu.be/pFrhpEZlFfI)\
+**Usability Study Report** [Report1](https://docs.google.com/document/d/1FanxdaBIndjh58f6GiFP7D0LB8gmam08HAiZ6zQ8yKs/edit?usp=sharing)\
+**Usability Study Report** [Report2](https://docs.google.com/document/d/1bXQ0y1ERCIb4X0NwJGoOM1Lmrmypu-Af9kinxfKQtDM/edit?usp=sharing)
 ---
 
-## Description:
-Currently, public events—concerts, festivals, tech meetups, museum exhibitions, farmers markets—are fragmented across dozens of platforms: Eventbrite, Meetup, Facebook Events, university calendars, venue websites, and local city listings. Event seekers must manually check multiple sources, leading to missed opportunities and discovery fatigue.
-To create a unified, no-login web application that aggregates public events from disparate platforms into a single searchable, filterable interface. It will allow anyone to discover what's happening in their city without platform-hopping, while enabling community contributors to manually add or import events from niche sources. Events are sourced through a curated mock dataset and community contributions via manual submission forms. (To support personalization without requiring account creation, users may optionally enter their email as an identifier to save preferences and favorites across sessions.)
-The platform features an interactive map view, a randomized "Discover Tonight" recommendation engine, and a side-by-side event comparison tool—designed to transform passive browsing into active city exploration. The system prioritizes comprehensive coverage and powerful discovery over social features or persistent user identity.
+## Description
+
+Public events—concerts, festivals, tech meetups, museum exhibitions, farmers markets—are fragmented across dozens of platforms: Eventbrite, Meetup, Facebook Events, university calendars, and local city listings. Event seekers must manually check multiple sources, leading to missed opportunities and discovery fatigue.
+
+EventHub is a unified event discovery platform that aggregates public events into a single searchable, filterable interface. Users register with an email and password to unlock personalization features. Browsing the event list and map is available to everyone; saving preferences, using Discover Tonight, and comparing events require an account.
+
+The platform features an interactive map view, a randomized "Discover Tonight" recommendation engine, a side-by-side event comparison tool, and individual event detail pages—designed to transform passive browsing into active city exploration.
 
 ---
 
 ## Objectives
 
-EventHub is a unified event discovery platform that aggregates public events from multiple sources into a single, searchable interface. The goal is to eliminate "discovery fatigue" — the frustration of checking Eventbrite, Meetup, Facebook Events, and dozens of other platforms just to find something happening nearby.
-The app allows anyone to browse, search, and filter 1,000+ events by city, category, price, and date — no account required. Users can optionally provide an email to save personalized preferences, comparison selections, and a default city across sessions. Key features include a list and interactive map view, a Discover Tonight page that surfaces today's events based on saved preferences, a side-by-side event comparison tool, and a community submission form for adding niche events not listed on major platforms.
+- Browse, search, and filter 1,000+ events by city, category, price, and date
+- Interactive list view and Leaflet-powered map view with grouped city markers
+- **Discover Tonight** — surfaces 3 random events today based on saved city and category preferences
+- **Side-by-side comparison** — save up to 3 events and compare them in the Preferences page
+- **Event Detail** — full event info page with view count tracking
+- **Community submissions** — add niche events not listed on major platforms via a multi-section form
+- **Account system** — email/password registration and login with 7-day session persistence
 
 ---
 
@@ -28,6 +37,17 @@ The app allows anyone to browse, search, and filter 1,000+ events by city, categ
 - [Node.js](https://nodejs.org/) v18+
 - A running MongoDB instance with connection URI
 - Two terminal windows (one for backend, one for frontend)
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, React Router 6, Leaflet / React Leaflet |
+| Backend | Express 5, MongoDB (native driver) |
+| Auth | Passport.js (local strategy), bcryptjs, express-session, connect-mongo |
+| Map / Geocoding | OpenStreetMap tiles, Nominatim API |
 
 ---
 
@@ -50,23 +70,26 @@ The app allows anyone to browse, search, and filter 1,000+ events by city, categ
 ```
 Web_Project3/
 ├── backend/
-│   ├── server.js              # Express app, MongoDB connection
+│   ├── server.js              # Express app, MongoDB connection, Passport + session setup
 │   └── routes/
+│       ├── auth.js            # Register, login, logout, getMe
 │       ├── event.js           # Event CRUD + filtering API
 │       └── preference.js      # User preference API
 └── frontend/
     └── src/
-        ├── App.jsx            # Routing (/, /add, /preferences)
+        ├── App.jsx            # Routing (/, /add, /preferences, /discover-tonight, /events/:id, /auth)
         ├── pages/
-        │   ├── DiscoverPage.jsx
-        │   ├── AddEventPage.jsx
-        │   └── PreferencesPage.jsx
-        │   └── DiscoverTonight.jsx
+        │   ├── DiscoverPage.jsx       # Main event list + map view
+        │   ├── AddEventPage.jsx       # Community submission form
+        │   ├── PreferencesPage.jsx    # Personalization + comparison view
+        │   ├── DiscoverTonight.jsx    # Daily recommendation engine
+        │   ├── EventDetailPage.jsx    # Single event detail view
+        │   └── AuthPage.jsx           # Login / Register
         ├── components/
-        │   ├── shared/navbar.js
+        │   ├── shared/navbar.jsx
         │   └── events/        # EventCard, EventList, EventMap, FilterBar, SearchBar
-        ├── hooks/             # useEvents, usePreferences
-        ├── services/          # eventService, preferenceService
+        ├── hooks/             # useEvents
+        ├── services/          # eventService, preferenceService, authService
         └── styles/            # All CSS files
 ```
 
@@ -89,6 +112,7 @@ Create a `.env` file inside the `backend/` folder:
 # backend/.env
 MONGO_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/project3
 PORT=5001
+SESSION_SECRET=your_secret_here
 ```
 
 ### 3. Start the backend
@@ -115,16 +139,45 @@ The app will open at `http://localhost:3000`.
 
 ---
 
+## Pages
+
+| Route | Page | Description |
+|-------|------|-------------|
+| `/` | Discover | Event list + interactive map, search, filters, compare |
+| `/events/:id` | Event Detail | Full event info, view count tracking |
+| `/add` | Add Event | Community submission form |
+| `/discover-tonight` | Discover Tonight | 3 random events today, respects saved preferences |
+| `/preferences` | Preferences | Set city/category, manage saved comparisons |
+| `/auth` | Login / Register | Email + password authentication |
+
+---
+
 ## API Endpoints
+
+### Auth
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/events` | List events (supports filters: `city`, `category`, `isFree`, `dateFrom`, `dateTo`, `platform`, `tags`, `search`, `random`, `page`, `limit`) |
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Log in |
+| POST | `/api/auth/logout` | Log out |
+| GET | `/api/auth/me` | Get current session user |
+
+### Events
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/events` | List events (filters: `city`, `category`, `isFree`, `dateFrom`, `dateTo`, `platform`, `tags`, `search`, `random`, `page`, `limit`) |
 | GET | `/api/events/:id` | Get single event |
 | POST | `/api/events` | Create event |
 | PUT | `/api/events/:id` | Update event |
 | DELETE | `/api/events/:id` | Delete event |
 | POST | `/api/events/:id/view` | Increment view count |
+
+### Preferences
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
 | GET | `/api/preferences/:email` | Get user preferences |
 | POST | `/api/preferences` | Create preferences |
 | PUT | `/api/preferences/:email` | Update preferences |
